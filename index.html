@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal HDS | Seguridad y Salud Ocupacional</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="topbar">
+    <div class="brand">
+      <img src="img/logo_envases_central.png" alt="Coca-Cola Envases Central S.A." class="corporate-logo">
+      <div class="logo-divider"></div>
+      <div>
+        <div class="eyebrow">SEGURIDAD Y SALUD OCUPACIONAL</div>
+        <h1>Portal HDS</h1>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button id="emergencyBtn" class="emergency-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        🚨 Emergencia Química
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="wrap">
+    
+    <!-- Hero / Search Section -->
+    <section class="hero">
+      <div class="hero-main">
+        <div class="hero-content">
+          <h2>¿Qué sustancia necesitas consultar?</h2>
+          <p>Búsqueda rápida por nombre, componente químico, área de trabajo, ubicación o tipo de peligro NCh 382.</p>
+        </div>
+        <div class="search-box">
+          <div class="search-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <input id="search" type="search" placeholder="Ej: Hipoclorito, ácido, Nalco, Divosan..." autocomplete="off">
+          <button id="clearSearch" class="clear-search-btn" title="Limpiar búsqueda" style="display:none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      
+      <div class="hero-mascot-area">
+        <div class="mascot-bubble-container">
+          <div class="mascot-bubble" id="mascotBubble">
+            ¡Hola! Haz clic en mí para ver un consejo de seguridad.
+          </div>
+        </div>
+        <div class="mascot-img-wrapper" id="mascotInteractive" title="Haz clic para ver un consejo de seguridad">
+          <img src="img/mascota.png" alt="Mascota de Seguridad" class="mascot-img">
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Columns -->
+    <div class="dashboard-layout">
+      
+      <!-- Sidebar Filters -->
+      <aside class="sidebar">
+        <!-- Safety Campaign Card -->
+        <div class="safety-campaign-card">
+          <img src="img/logo_embajadores.png" alt="Embajadores de Conducta Segura y Activa" class="campaign-logo">
+          <div class="campaign-content">
+            <h4>Conducta Segura y Activa</h4>
+            <p>Somos embajadores del autocuidado y la prevención de riesgos.</p>
+          </div>
+        </div>
+
+        <!-- Area Filters -->
+        <div class="filter-group">
+          <div class="filter-header">
+            <h3>Filtrar por Área</h3>
+            <button id="clearArea" class="linkbtn">Ver todas</button>
+          </div>
+          <div id="areas" class="area-grid"></div>
+        </div>
+
+        <!-- Hazard Filters -->
+        <div class="filter-group">
+          <div class="filter-header">
+            <h3>Clase de Peligro NCh 382</h3>
+            <button id="clearHazard" class="linkbtn">Ver todas</button>
+          </div>
+          <div id="hazards" class="hazard-grid"></div>
+        </div>
+      </aside>
+
+      <!-- Main Grid Results -->
+      <section class="main-content">
+        <div class="results-head">
+          <div>
+            <h3 id="resultTitle">Todas las sustancias</h3>
+            <p id="count">0 registros</p>
+          </div>
+          <button id="resetAllFilters" class="btn btn-secondary" style="display: none;">
+            Limpiar Filtros
+          </button>
+        </div>
+
+        <div id="cards" class="cards"></div>
+
+        <div id="empty" class="empty hidden">
+          <div class="empty-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <strong>No encontramos coincidencias</strong>
+          <span>Prueba con otro término o borra los filtros de área/peligro.</span>
+          <button id="emptyReset" class="btn btn-primary">Mostrar todo</button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Substance Detail Modal -->
+  <div id="detailModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <button id="closeDetailModal" class="modal-close" aria-label="Cerrar modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      
+      <div class="modal-header">
+        <div id="modalAreaBadge" class="modal-tag">Área</div>
+        <h2 id="modalTitle">Nombre del Producto</h2>
+        <p id="modalLocation"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <span id="modalLocationText">Ubicación</span></p>
+      </div>
+
+      <div class="modal-body">
+        
+        <!-- Grid: Safety Info & NFPA Diamond -->
+        <div class="detail-grid">
+          <!-- Safety Info -->
+          <div class="safety-info-col">
+            <div class="detail-section">
+              <h4>Clasificación de Peligro (NCh 382)</h4>
+              <div id="modalHazardTag" class="hazard-badge-large">Clasificación</div>
+            </div>
+
+            <div class="detail-section">
+              <h4>Estado</h4>
+              <span id="modalEstadoBadge" class="tag">Estado</span>
+            </div>
+
+            <div class="detail-section">
+              <h4>Componentes Activos</h4>
+              <div id="modalComponents" class="component-list"></div>
+            </div>
+          </div>
+
+          <!-- NFPA Diamond Visualization -->
+          <div class="nfpa-col">
+            <h4>Rombo de Seguridad NFPA 704</h4>
+            <p class="nfpa-sub">Estimado según clasificación NCh 382</p>
+            <div class="nfpa-diamond-container">
+              <div class="nfpa-diamond">
+                <div class="nfpa-quad blue" title="Salud"><span id="nfpaSalud">3</span></div>
+                <div class="nfpa-quad red" title="Inflamabilidad"><span id="nfpaInflamabilidad">0</span></div>
+                <div class="nfpa-quad yellow" title="Inestabilidad / Reactividad"><span id="nfpaInestabilidad">0</span></div>
+                <div class="nfpa-quad white" title="Riesgo Especial"><span id="nfpaEspecial">-</span></div>
+              </div>
+            </div>
+            <div class="nfpa-legend">
+              <div><span class="dot blue"></span> <strong>Salud:</strong> <span id="nfpaSaludTxt">Peligro</span></div>
+              <div><span class="dot red"></span> <strong>Inflamabilidad:</strong> <span id="nfpaInflamabilidadTxt">Peligro</span></div>
+              <div><span class="dot yellow"></span> <strong>Inestabilidad:</strong> <span id="nfpaInestabilidadTxt">Peligro</span></div>
+              <div><span class="dot white"></span> <strong>Riesgo Especial:</strong> <span id="nfpaEspecialTxt">-</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- First Aid Protocol based on Hazard -->
+        <div class="detail-section protocol-section">
+          <h4>🚨 Primeros Auxilios y Medidas de Emergencia</h4>
+          <div id="modalProtocol" class="protocol-box">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- PDF Attachment / URL Editor -->
+        <div class="pdf-admin-section">
+          <h4>Hoja de Datos de Seguridad (HDS PDF)</h4>
+          <div class="pdf-link-container">
+            <div class="pdf-status">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              <div>
+                <strong id="modalPdfTitle">HDS no disponible</strong>
+                <span id="modalPdfSub">Enlace pendiente de configuración</span>
+              </div>
+            </div>
+            <a id="modalViewPdfBtn" class="btn btn-primary" href="#" target="_blank" rel="noopener">Ver HDS</a>
+          </div>
+
+          <!-- Edit Section -->
+          <details class="edit-pdf-details">
+            <summary>Configurar enlace PDF (Administración)</summary>
+            <div class="edit-pdf-form">
+              <label for="inputPdfUrl">URL de la Hoja de Datos de Seguridad (PDF):</label>
+              <div class="input-group">
+                <input type="url" id="inputPdfUrl" placeholder="https://ejemplo.com/hds/hipoclorito.pdf">
+                <button id="savePdfUrlBtn" class="btn btn-success">Guardar</button>
+              </div>
+              <p class="help-text">La URL se guardará de forma local en tu navegador para fines de demostración.</p>
+            </div>
+          </details>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Chemical Emergency Protocol Modal -->
+  <div id="emergencyModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card emergency-card">
+      <button id="closeEmergencyModal" class="modal-close" aria-label="Cerrar modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <div class="modal-header emergency-header">
+        <div class="emergency-icon-container">🚨</div>
+        <h2>Protocolo de Emergencias Químicas</h2>
+        <p>Guía de actuación rápida y contactos de emergencia</p>
+      </div>
+
+      <div class="modal-body">
+        
+        <!-- Contact Grid -->
+        <div class="emergency-contacts">
+          <h3>Teléfonos de Emergencia</h3>
+          <div class="contacts-grid">
+            <a href="tel:+56226353800" class="contact-box main-contact">
+              <strong>CITUC (Químico)</strong>
+              <span>+56 2 2635 3800</span>
+              <p>Centro de Información Toxicológica UC (24 hrs)</p>
+            </a>
+            <a href="tel:132" class="contact-box">
+              <strong>Bomberos</strong>
+              <span>132</span>
+              <p>Especialistas HAZMAT (Control Químico)</p>
+            </a>
+            <a href="tel:131" class="contact-box">
+              <strong>Ambulancia (SAMU)</strong>
+              <span>131</span>
+              <p>Emergencias médicas y traslados</p>
+            </a>
+            <a href="tel:133" class="contact-box">
+              <strong>Carabineros</strong>
+              <span>133</span>
+              <p>Resguardo e interrupción de tránsito</p>
+            </a>
+          </div>
+        </div>
+
+        <!-- Action Protocol -->
+        <div class="emergency-protocol-content">
+          <h3>Protocolo P.A.S. (Proteger - Avisar - Socorrer)</h3>
+          
+          <div class="protocol-steps">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div>
+                <h4>Proteger</h4>
+                <p>Evacúe el área inmediata si hay gases o vapores. Use EPP adecuado si está capacitado para intervenir. Nunca se exponga a riesgos innecesarios.</p>
+              </div>
+            </div>
+            
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div>
+                <h4>Avisar</h4>
+                <p>Notifique de inmediato a la jefatura y llame al CITUC (+56 2 2635 3800) o Bomberos (132). Indique el producto (consulte este portal) y el estado físico.</p>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div>
+                <h4>Socorrer</h4>
+                <p>En caso de contacto con personas, trasládelas a un lugar ventilado. Si hay salpicaduras, enjuague con abundante agua durante 15 a 20 minutos (use duchas/lavaojos de emergencia). Consulte la HDS en el portal.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spill Kit info -->
+        <div class="spill-kit-info">
+          <h4>Uso del Kit Antiderrames:</h4>
+          <ul>
+            <li><strong>Contener:</strong> Coloque las barreras absorbentes rodeando el derrame.</li>
+            <li><strong>Absorber:</strong> Cubra con arena o absorbente inerte (según clasificación).</li>
+            <li><strong>Recoger:</strong> Deposite los residuos en la bolsa roja o contenedor especial HAZMAT. No use agua directa al alcantarillado.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p><strong>Portal HDS v2.0 - Seguridad y Salud Ocupacional</strong> · Creado a partir del Listado Maestro LM-SSO-SEG-003</p>
+    <p>Esta base de datos permite almacenar localmente enlaces personalizados a las HDS PDF en cada navegador sin alterar los datos originales.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
