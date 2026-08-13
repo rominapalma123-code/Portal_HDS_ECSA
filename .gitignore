@@ -1,0 +1,15 @@
+# Archivos de prueba generados por los scripts
+muestra_hds.js
+muestra_hds.json
+diagnostico.csv
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
