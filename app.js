@@ -636,11 +636,89 @@ emergencyModal.addEventListener('click', (e) => {
   if (e.target === emergencyModal) closeEmergencyModalFn();
 });
 
+// Advice handling (previously modal based)
+const adviceList = [
+  'Antes de usar un producto, revisa su etiqueta y su hoja de datos de seguridad.',
+  '¿No encuentras la HDS? Solicítala antes de manipular el producto.',
+  'Revisa los pictogramas de peligro antes de comenzar tu tarea.',
+  'Antes de usar un químico nuevo, conoce sus riesgos y medidas de control.',
+  'Si no entiendes una indicación de la etiqueta, consulta a tu supervisión.',
+  'Una etiqueta dañada o ilegible debe ser informada y reemplazada según el procedimiento.',
+  'Antes de comenzar, asegúrate de haber recibido capacitación para la tarea.',
+  'Usa los elementos de protección indicados para el producto y la tarea.',
+  'Revisa que tus elementos de protección estén en buen estado antes de usarlos.',
+  'Si tu EPP está dañado o contaminado, avisa y sigue el procedimiento de tu área.',
+  'No manipules un producto si no sabes qué contiene.',
+  'No mezcles productos químicos sin verificar las indicaciones y el procedimiento.',
+  'Usa solo la cantidad necesaria para realizar tu tarea.',
+  'Mantén los envases cerrados cuando no los estés utilizando, según la HDS.',
+  'Evita inhalar vapores, gases, aerosoles o polvos del producto.',
+  'Antes de trabajar, verifica que las medidas de ventilación indicadas estén funcionando.',
+  'Nunca uses envases de alimentos o bebidas para guardar productos químicos.',
+  'Si trasvasijas un producto, utiliza un envase compatible y correctamente identificado.',
+  'Al terminar tu tarea, lávate las manos antes de comer o beber.',
+  'No comas ni bebas en las áreas donde se manipulan sustancias peligrosas.',
+  'Guarda cada producto en el lugar establecido para él.',
+  'Revisa la compatibilidad antes de almacenar productos juntos.',
+  'Mantén despejadas las vías de evacuación y los accesos a equipos de emergencia.',
+  'Si ves un envase dañado o con filtraciones, avisa de inmediato.',
+  'Mantén la etiqueta visible y en buen estado.',
+  'Sigue las condiciones de almacenamiento indicadas en la HDS.',
+  'Antes de mover un envase, revisa que esté cerrado y en buen estado.',
+  'Usa los equipos y procedimientos definidos para transportar productos químicos.',
+  'Si detectas un derrame, avisa y sigue el procedimiento de emergencia de tu área.',
+  'No intentes controlar un derrame si no estás capacitado o autorizado.',
+  'Conoce la ubicación de la ducha y el lavaojos de emergencia de tu área.',
+  'Mantén libre el acceso a los equipos de emergencia.',
+  'Si ocurre una exposición, informa de inmediato y activa el procedimiento correspondiente.',
+  'Conoce las vías de evacuación y el punto de encuentro de tu área.',
+  'Elimina los residuos químicos según el procedimiento de tu planta.'
+];
+let adviceIndex = -1; // start before first advice
+const ADVICE_INACTIVITY_MS = 60000;
+let adviceTimer = null;
+const greetingText = '¡Hola! Haz clic en mí para ver un consejo de seguridad.';
+function resetAdviceTimer() {
+  if (adviceTimer) clearTimeout(adviceTimer);
+  adviceTimer = setTimeout(() => {
+    if (mascotBubble) mascotBubble.textContent = greetingText;
+  }, ADVICE_INACTIVITY_MS);
+}
+
+// Initialize bubble with greeting text
+if (mascotBubble) {
+  mascotBubble.textContent = greetingText;
+}
+
+// Show next advice in bubble
+function showNextAdvice() {
+  adviceIndex = (adviceIndex + 1) % adviceList.length;
+  const advice = adviceList[adviceIndex];
+  if (mascotBubble) mascotBubble.textContent = advice;
+  // Reset inactivity timer so greeting appears after 60s of no clicks
+  resetAdviceTimer();
+  // Optional alert for mobile visibility
+  if (window.innerWidth <= 768) {
+    alert(advice);
+  }
+}
+
+// Attach click listeners
+if (mascotBubble) mascotBubble.addEventListener('click', showNextAdvice);
+if (mascotInteractive) mascotInteractive.addEventListener('click', showNextAdvice);
+if (adviceMobileBtn) adviceMobileBtn.addEventListener('click', showNextAdvice);
+// Start the inactivity timer after initial setup
+resetAdviceTimer();
+
+// The previous modal elements are no longer used
+
+
 // ESC Key press listener to close modals
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeDetailModalFn();
     closeEmergencyModalFn();
+    // closeAdviceModalFn removed - not needed
   }
 });
 
