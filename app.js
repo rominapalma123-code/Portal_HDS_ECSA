@@ -577,44 +577,88 @@ function hdsSection(doc, key, title, expanded) {
   </section>`;
 }
 
+// Visual grouping only: all instructions remain verbatim from their own source HDS.
+function hdsIcon(name) {
+  const paths = {
+    eyes: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',
+    skin: '<path d="M8 13V6a1.5 1.5 0 0 1 3 0v6-8a1.5 1.5 0 0 1 3 0v8-6a1.5 1.5 0 0 1 3 0v7-4a1.5 1.5 0 0 1 3 0v7c0 4-2 6-6 6h-2c-2 0-3-1-4-3l-4-6c-1-2 1-3 2-2Z"/>',
+    inhalation: '<path d="M3 8h12a3 3 0 1 0-3-3M2 12h17a3 3 0 1 1-3 3M4 17h6a3 3 0 1 1-3 3"/>',
+    ingestion: '<path d="M3 12c3-6 6-7 9-3 3-4 6-3 9 3-4 7-14 7-18 0Z"/><path d="M3 12h18"/>',
+    aid: '<rect x="3" y="6" width="18" height="15" rx="3"/><path d="M8 6V3h8v3M12 10v7M8.5 13.5h7"/>',
+    flask: '<path d="M9 3h6M10 3v7l-6 9c-1 1 0 2 1 2h14c1 0 2-1 1-2l-6-9V3M8 15h8"/>',
+    danger: '<path d="m12 3 10 18H2L12 3Z"/><path d="M12 9v5M12 17h.01"/>',
+    doc: '<path d="M14 2H5v20h14V7l-5-5Z"/><path d="M14 2v6h5M8 12h8M8 16h8"/>'
+  };
+  return `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths[name] || paths.doc}</svg>`;
+}
+
+function splitHdsAid(doc) {
+  const output = { eyes: [], skin: [], inhalation: [], ingestion: [], general: [] };
+  function keyFor(label) {
+    const x = norm(label);
+    return /ojos|ocular/.test(x) ? 'eyes' : /piel|cutane/.test(x) ? 'skin' : /inhal/.test(x) ? 'inhalation' : /ingest/.test(x) ? 'ingestion' : 'general';
+  }
+  if (doc.summary && Array.isArray(doc.summary.aid)) {
+    doc.summary.aid.forEach(x => output[keyFor(x.route)].push(x.text));
+    return output;
+  }
+  const original = doc.sections?.aid?.text || '';
+  // Limit route grouping to first-aid instructions, before symptoms or physician notes.
+  const stop = original.search(/(?:4\.2\s+|(?:^|\n)\s*(?:Efectos agudos previstos|Principales s[ií]ntomas|S[ií]ntomas\/efectos|Notas para el m[eé]dico|Protecci[oó]n de los socorristas|Protecci[oó]n de quienes|Notas especiales para))/im);
+  const text = (stop < 0 ? original : original.slice(0, stop)).replace(/(\d\s*\/\s*\d+)(En caso de)/g, '$1\n$2');
+  const label = /(^|\n|\.\s+)((?:En caso de\s+)?(?:[Cc]ontacto\s+(?:con\s+(?:los\s+ojos|la\s+piel)|ocular)|[Ii]nhalaci[oó]n|[Ii]ngesti[oó]n)|Despu[eé]s de\s+(?:inhalaci[oó]n|contacto\s+con\s+(?:la\s+piel|los\s+ojos)|ingesti[oó]n))(?:[ \t]*:[ \t]*\n?[ \t]*|[ \t]*\n+[ \t]*|[ \t]+(?=[A-ZÁÉÍÓÚ]))/gm;
+  const matches = [...text.matchAll(label)];
+  for (let i = 0; i < matches.length; i++) {
+    const m = matches[i];
+    const end = i + 1 < matches.length ? matches[i + 1].index : text.length;
+    const instruction = text.slice(m.index + m[0].length, end).trim();
+    if (instruction) output[keyFor(m[2])].push(instruction);
+  }
+  // General information is shown in full in the source accordion. Do not re-use
+  // displaced NFPA tables or page headers as clinical instructions.
+  return output;
+}
+
+function renderAidCards(doc) {
+  const aid = splitHdsAid(doc);
+  const routes = [['eyes', 'Ojos'], ['skin', 'Piel'], ['inhalation', 'Inhalación'], ['ingestion', 'Ingestión']];
+  return `<section class="hds-section hds-aid-section"><h4>${hdsIcon('aid')}Primeros auxilios</h4><p class="hds-caption">Abre el tipo de contacto. Puedes consultar varios a la vez.</p>
+    <div class="hds-aid-cards">${routes.map(([key,title])=>`<details class="hds-route hds-route-${key}"><summary>${hdsIcon(key)}<span><strong>${title}</strong><small>Sección 4 de la HDS</small></span><span class="hds-chevron" aria-hidden="true">⌄</span></summary><div class="hds-route-body">${aid[key].length ? aid[key].map(t=>`<p>${escapeHtml(t)}</p>`).join('') : '<p>No se pudo separar una indicación para esta vía. Revisa la sección 4 completa de la HDS.</p><a href="'+escapeHtml(doc.url)+'" target="_blank" rel="noopener">Abrir HDS completa ↗</a>'}</div></details>`).join('')}</div>
+    <details class="hds-extra"><summary>${hdsIcon('doc')}Información general y atención médica<span class="hds-chevron" aria-hidden="true">⌄</span></summary><div class="hds-extra-body">${aid.general.map(t=>`<p>${escapeHtml(t)}</p>`).join('')}<p class="hds-caption">Sección 4 completa: incluye información general, síntomas y atención médica cuando están declarados en la HDS.</p><div class="hds-excerpt">${escapeHtml(doc.sections?.aid?.text || 'Consulta el documento original.')}</div></div></details>
+  </section>`;
+}
+
 function renderHdsInformation(item) {
   const container = document.getElementById('modalHdsContent');
   if (!container) return;
   const doc = getSourceDocument(item);
-  const internal = `<p class="hds-internal"><strong>Dato de uso interno:</strong> ${escapeHtml(item.estado || 'Sin estado registrado')}. Área y ubicación corresponden al listado de planta. La HDS describe el producto suministrado; sus concentraciones no describen necesariamente una dilución de uso.</p>`;
+  const internal = `<p class="hds-internal"><strong>Uso interno:</strong> ${escapeHtml(item.estado || 'Sin estado registrado')} · ${escapeHtml(item.ubicacion || item.area || '')}<br>La HDS describe el producto suministrado; sus concentraciones pueden diferir de una dilución de uso.</p>`;
   if (!doc) {
-    container.innerHTML = `<div class="hds-empty"><strong>Información de la HDS pendiente de lectura</strong><p>${item.hdsUrl ? 'El PDF está disponible. Consulta su clasificación, composición y primeros auxilios en el documento.' : 'Aún no se ha asociado una HDS a este producto.'}</p></div>` + internal;
+    container.innerHTML = `<div class="hds-empty">${hdsIcon('doc')}<strong>HDS pendiente de lectura</strong><p>${item.hdsUrl ? 'El PDF está disponible. Consulta en él la señalización, composición y primeros auxilios.' : 'Aún no se ha asociado una HDS a este producto.'}</p></div>` + internal;
     return;
   }
-  let content = `<div class="hds-source"><strong>Información del documento HDS</strong>
-    <p>${escapeHtml(doc.fileName)}</p>
-    ${doc.documentDate ? `<p>Fecha declarada en la HDS: ${escapeHtml(doc.documentDate)}</p>` : ''}
-    <p>Lectura incorporada al portal: ${escapeHtml(doc.processedAt)}</p>
-    <p><a href="${escapeHtml(doc.url)}" target="_blank" rel="noopener">Abrir documento fuente completo ↗</a></p>
-  </div>`;
-  if (doc.summary) {
-    const summary = doc.summary;
-    content += `<section class="hds-section"><h4>Etiqueta SGA · sección 2</h4>
-      <div class="hds-label">${doc.pictogramImage ? `<img class="hds-pictogram" src="${doc.pictogramImage}" alt="SGA: corrosión. Pictograma extraído de la HDS Resource.">` : ''}
-      <div><span class="hds-signal">${escapeHtml(summary.signalWord)}</span><p>${escapeHtml(summary.pictogramLabel)}</p></div></div>
-      <ul>${summary.classifications.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>
-      <div class="hds-excerpt">${escapeHtml(summary.hazardStatements.join('\n'))}</div>
-    </section>`;
-    content += `<section class="hds-section"><h4>Composición · sección 3</h4><table><thead><tr><th>Componente</th><th>CAS</th><th>% en peso</th></tr></thead><tbody>${summary.components.map(x=>`<tr><td>${escapeHtml(x.name)}</td><td>${escapeHtml(x.cas)}</td><td>${escapeHtml(x.percentage)}</td></tr>`).join('')}</tbody></table><p class="hds-caption">Rangos declarados para el producto suministrado.</p></section>`;
-    content += `<section class="hds-section"><h4>Primeros auxilios · sección 4.1</h4>${summary.aid.map(x=>`<div class="hds-aid"><strong>${escapeHtml(x.route)}</strong><p>${escapeHtml(x.text)}</p></div>`).join('')}<p class="hds-caption">Revisa también los síntomas y las indicaciones para el personal médico en la sección 4 completa.</p></section>`;
+  let content = `<div class="hds-source-strip">${hdsIcon('doc')}<span>HDS${doc.documentDate ? ' · '+escapeHtml(doc.documentDate) : ''}</span><a href="${escapeHtml(doc.url)}" target="_blank" rel="noopener">Ver original ↗</a></div>`;
+  const summary = doc.summary;
+  content += `<section class="hds-section hds-hazard-card"><h4>${hdsIcon('danger')}Peligros según HDS</h4><div class="hds-card-content">`;
+  if (summary) {
+    content += `<div class="hds-danger-overview"><div class="hds-picto-group">${doc.pictogramImage ? `<img class="hds-pictogram" src="${doc.pictogramImage}" alt="Pictograma de corrosión de la HDS">` : ''}<span class="hds-signal">${escapeHtml(summary.signalWord)}</span></div><ul>${summary.classifications.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul></div><div class="hds-hazards-list">${summary.hazardStatements.map(x=>{const m=x.match(/^(H\d{3}(?:\s*\+\s*H\d{3})*)\s*[—–-]?\s*(.*)$/s);return `<div class="hds-hazard-row">${m?`<strong>${escapeHtml(m[1])}</strong><span>${escapeHtml(m[2])}</span>`:`<span>${escapeHtml(x)}</span>`}</div>`;}).join('')}</div>`;
   } else {
-    content += `<section class="hds-section"><h4>Etiqueta y peligros declarados en la HDS</h4><p class="hds-caption">Imagen del documento fuente. Conserva sus pictogramas, clasificación y señalización tal como aparecen en el PDF.</p>`;
-    if (doc.labelImages && doc.labelImages.length) {
-      content += doc.labelImages.map((img,i)=>`<img class="hds-label-page" src="${img.data}" alt="Peligros declarados en ${escapeHtml(doc.fileName)}, página ${img.page}. El texto accesible se encuentra a continuación." ${i ? 'loading="lazy"' : ''}><p class="hds-caption">Página ${img.page} del documento fuente.</p>`).join('');
-    }
-    content += '</section>';
-    content += hdsSection(doc, 'hazards', 'Identificación de los peligros', false);
-    content += hdsSection(doc, 'components', 'Composición según HDS', true);
-    content += hdsSection(doc, 'aid', 'Primeros auxilios según HDS', true);
+    content += `<p class="hds-caption">Señalización original del producto. Toca para ampliar y leer todos sus detalles.</p>`;
+    const first=doc.labelImages?.[0];
+    if(first) content += `<details class="hds-signal-preview"><summary><img src="${first.data}" alt="Señalización original, página ${first.page} de la HDS"><span>Ampliar etiqueta original ⌄</span></summary><div>${doc.labelImages.map(img=>`<img class="hds-label-page" loading="lazy" src="${img.data}" alt="Peligros declarados, página ${img.page}">`).join('')}</div></details>`;
+    content += hdsSection(doc,'hazards','Clasificación y peligros declarados',false);
   }
-  if (doc.summary) {
-    content += `<details class="hds-raw"><summary>Ver etiqueta y apartados originales de la HDS</summary>${(doc.labelImages||[]).map(img=>`<img class="hds-label-page" loading="lazy" src="${img.data}" alt="Sección de peligros, página ${img.page} de la HDS Resource.">`).join('')}${hdsSection(doc,'hazards','Sección 2',false)}${hdsSection(doc,'components','Sección 3',false)}${hdsSection(doc,'aid','Sección 4',false)}</details>`;
+  content += '</div></section>';
+  content += `<section class="hds-section hds-composition-card"><h4>${hdsIcon('flask')}Composición según HDS</h4><div class="hds-card-content">`;
+  if(summary?.components?.length) {
+    content += `<table><thead><tr><th>Componente</th><th>CAS</th><th>% en peso</th></tr></thead><tbody>${summary.components.map(x=>`<tr><td>${escapeHtml(x.name)}</td><td>${escapeHtml(x.cas)}</td><td>${escapeHtml(x.percentage)}</td></tr>`).join('')}</tbody></table><p class="hds-caption">Producto suministrado · sección 3 de la HDS</p>`;
+  } else {
+    content += `<details class="hds-raw"><summary>Ver componentes de la HDS<span class="hds-chevron" aria-hidden="true">⌄</span></summary><div class="hds-excerpt">${escapeHtml(doc.sections?.components?.text || 'Consulta la composición en el documento original.')}</div></details>`;
   }
-  content += `<p class="hds-caption">Este extracto corresponde al documento indicado y complementa su lectura completa. Si la HDS cambia en Drive, es necesario actualizar la lectura del portal.</p>` + internal;
+  content += '</div></section>';
+  content += renderAidCards(doc);
+  content += `<details class="hds-extra"><summary>${hdsIcon('doc')}Ver extracto original<span class="hds-chevron" aria-hidden="true">⌄</span></summary><div class="hds-extra-body">${(doc.labelImages||[]).map(img=>`<img class="hds-label-page" loading="lazy" src="${img.data}" alt="Sección de peligros, página ${img.page}">`).join('')}${hdsSection(doc,'hazards','Peligros',false)}${hdsSection(doc,'components','Composición',false)}${hdsSection(doc,'aid','Primeros auxilios',false)}</div></details>`;
+  content += `<details class="hds-extra hds-source"><summary>${hdsIcon('doc')}Información del documento<span class="hds-chevron" aria-hidden="true">⌄</span></summary><div class="hds-extra-body"><p>${escapeHtml(doc.fileName)}</p><p>Fecha declarada: ${escapeHtml(doc.documentDate || 'Consultar HDS')}</p><p>Lectura incorporada al portal: ${escapeHtml(doc.processedAt)}</p><a href="${escapeHtml(doc.url)}" target="_blank" rel="noopener">Abrir documento original ↗</a></div></details>`;
+  content += `<p class="hds-caption">Consulta la HDS completa para todas las indicaciones.</p><a class="hds-pdf-button" href="${escapeHtml(doc.url)}" target="_blank" rel="noopener">${hdsIcon('doc')}Abrir HDS completa ↗</a>` + internal;
   container.innerHTML = content;
 }

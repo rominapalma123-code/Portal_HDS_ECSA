@@ -1742,3 +1742,80 @@ footer strong {
 }
 /* Keep the page navigation button from covering an open product or emergency dialog. */
 .modal-overlay:not(.hidden) ~ .back-to-top { display: none; }
+/* Approved colorful HDS concept: the colors organize sections, not risk scores. */
+#modalHdsContent { --hds-line: #e2e8f0; }
+#modalHdsContent svg { width: 25px; height: 25px; flex: 0 0 25px; }
+.hds-source-strip { display:flex; align-items:center; gap:9px; flex-wrap:wrap; background:#edf6ff; color:#224d7c; padding:12px 14px; border:1px solid #d5e8ff; border-radius:12px; font-size:13px; margin-bottom:20px; }
+.hds-source-strip svg { color:#0874df; }
+.hds-source-strip span { flex:1; min-width:140px; }
+.hds-source-strip a { color:#0565c4; font-weight:700; text-decoration:underline; text-underline-offset:3px; }
+#modalHdsContent .hds-hazard-card,#modalHdsContent .hds-composition-card { border:1px solid #e2e8f0; border-radius:17px; overflow:hidden; background:white; box-shadow:0 3px 12px #0f172a04; margin:0 0 22px; }
+#modalHdsContent .hds-section > h4 { display:flex; align-items:center; gap:10px; font-size:18px; line-height:1.4; text-transform:none; letter-spacing:0; }
+#modalHdsContent .hds-hazard-card > h4 { padding:15px 18px; background:linear-gradient(110deg,#ffe1dc,#ffc5bb); color:#641d19; margin:0; }
+#modalHdsContent .hds-composition-card > h4 { padding:15px 18px; background:linear-gradient(110deg,#fff0cc,#ffd989); color:#64400c; margin:0; }
+.hds-card-content { padding:18px; }
+.hds-danger-overview { display:flex; align-items:center; gap:20px; margin-bottom:18px; }
+.hds-picto-group { display:flex; flex:0 0 126px; flex-direction:column; align-items:center; gap:8px; }
+#modalHdsContent .hds-pictogram { width:116px; height:116px; flex-basis:auto; }
+#modalHdsContent .hds-signal { color:white; background:#dc2626; padding:5px 16px; border-radius:7px; margin:0; text-transform:uppercase; font-size:14px; }
+.hds-danger-overview ul { margin:0; padding-left:20px; font-size:14px; flex:1; }
+.hds-danger-overview li { padding-left:2px; line-height:1.55; }
+.hds-danger-overview li::marker { color:#94a3b8; }
+.hds-hazards-list { display:grid; gap:8px; }
+.hds-hazard-row { display:flex; align-items:stretch; gap:12px; background:#fff0f2; border-radius:9px; overflow:hidden; font-size:14px; line-height:1.6; }
+.hds-hazard-row strong { display:flex; align-items:center; justify-content:center; min-width:65px; padding:10px; background:#ffe1e7; color:#a1112a; }
+.hds-hazard-row span { padding:10px 12px 10px 0; }
+#modalHdsContent .hds-section table { font-size:14px; table-layout:auto; border:1px solid #e2e8f0; }
+#modalHdsContent .hds-section th { background:#f1f5f9; color:#334155; }
+#modalHdsContent .hds-section td { line-height:1.5; }
+.hds-aid-section { margin-top:26px; }
+.hds-aid-section > h4 svg { color:#e53947; }
+.hds-aid-cards { display:grid; gap:11px; margin:14px 0; }
+.hds-route { border:1px solid var(--route-border); background:var(--route-bg); border-radius:13px; overflow:hidden; }
+.hds-route-eyes { --route-bg:#eaf5ff; --route-border:#b9deff; --route-icon:#076ecb; }
+.hds-route-skin { --route-bg:#fff3e5; --route-border:#ffdeb1; --route-icon:#d66b0b; }
+.hds-route-inhalation { --route-bg:#f1edff; --route-border:#d7ceff; --route-icon:#6745cc; }
+.hds-route-ingestion { --route-bg:#fff0f3; --route-border:#ffcbd5; --route-icon:#c8234b; }
+.hds-route > summary { display:flex; align-items:center; gap:14px; cursor:pointer; list-style:none; min-height:84px; padding:15px 18px; color:#14213f; -webkit-tap-highlight-color:transparent; }
+.hds-route > summary::-webkit-details-marker,.hds-extra > summary::-webkit-details-marker,.hds-signal-preview > summary::-webkit-details-marker { display:none; }
+#modalHdsContent .hds-route > summary svg { width:34px; height:34px; flex-basis:34px; color:var(--route-icon); }
+.hds-route summary > span:not(.hds-chevron) { flex:1; }
+.hds-route strong { display:block; font-size:18px; }
+.hds-route small { display:block; font-size:12px; color:#52617b; margin-top:4px; }
+.hds-chevron { font-size:24px; line-height:1; margin-left:auto; flex:0 0 22px; text-align:center; transition:transform .15s; }
+.hds-route[open] > summary > .hds-chevron,.hds-extra[open] > summary > .hds-chevron { transform:rotate(180deg); }
+.hds-route-body { background:white; border-radius:10px; margin:0 11px 11px; padding:15px; font-size:15px; line-height:1.7; color:#23344c; overflow-wrap:anywhere; }
+.hds-route-body p { margin:0 0 12px; white-space:pre-line; }
+.hds-route-body p:last-child { margin-bottom:0; }
+.hds-route-body a { color:#075ca8; font-weight:600; }
+.hds-extra { border:1px solid #dce4ef; border-radius:11px; background:#fff; margin:12px 0; overflow:hidden; }
+.hds-extra > summary { display:flex; align-items:center; gap:10px; list-style:none; padding:14px; cursor:pointer; min-height:52px; color:#1b2e4d; font-size:14px; font-weight:700; }
+.hds-extra-body { padding:0 15px 15px; overflow-wrap:anywhere; }
+#modalHdsContent .hds-source { background:white; margin:12px 0; padding:0; }
+.hds-pdf-button { display:flex; align-items:center; justify-content:center; gap:10px; text-decoration:none; color:white; background:#066bd0; border-radius:11px; min-height:54px; padding:14px 18px; font-size:16px; font-weight:700; margin:14px 0 18px; box-shadow:0 4px 12px #0066cc1c; }
+.hds-pdf-button:hover { background:#0055ac; }
+.hds-internal { background:#f2f5f9; border:0; padding:12px 14px; border-radius:10px; line-height:1.65; }
+.hds-signal-preview > summary { cursor:zoom-in; list-style:none; display:block; }
+.hds-signal-preview > summary img { width:100%; max-height:300px; object-fit:contain; background:white; border:1px solid #e2e8f0; border-radius:10px; }
+.hds-signal-preview > summary span { display:block; text-align:center; font-size:13px; color:#075ca8; background:#edf6ff; border-radius:8px; padding:9px; margin-top:7px; }
+.hds-signal-preview[open] > summary img { display:none; }
+.hds-raw > summary { min-height:44px; display:flex; align-items:center; gap:8px; }
+.hds-route > summary:focus-visible,.hds-extra > summary:focus-visible,.hds-pdf-button:focus-visible,.hds-signal-preview > summary:focus-visible { outline:3px solid #0066cc; outline-offset:3px; }
+.hds-empty > svg { display:block; color:#b77916; margin-bottom:10px; }
+@media (max-width:480px) {
+ .hds-card-content { padding:14px; }
+ #modalHdsContent .hds-section > h4 { font-size:17px; }
+ #modalHdsContent .hds-hazard-card > h4,#modalHdsContent .hds-composition-card > h4 { padding:14px; }
+ .hds-danger-overview { gap:13px; align-items:flex-start; }
+ .hds-picto-group { flex-basis:92px; }
+ #modalHdsContent .hds-pictogram { width:88px; height:88px; }
+ .hds-danger-overview ul { font-size:13px; padding-left:16px; }
+ .hds-hazard-row { font-size:13px; gap:8px; }
+ .hds-hazard-row strong { min-width:57px; padding:8px; }
+ #modalHdsContent .hds-section td,#modalHdsContent .hds-section th { font-size:12px; padding:9px 6px; }
+ .hds-route > summary { padding:14px; gap:12px; }
+ .hds-route-body { padding:13px; font-size:14px; }
+ .hds-source-strip { font-size:12px; }
+ .hds-extra > summary { font-size:13px; }
+}
+@media (prefers-reduced-motion:reduce) { .hds-chevron { transition:none; } }
