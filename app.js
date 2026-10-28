@@ -636,6 +636,11 @@ emergencyModal.addEventListener('click', (e) => {
   if (e.target === emergencyModal) closeEmergencyModalFn();
 });
 
+// Advice controls
+const mascotBubble = document.getElementById('mascotBubble');
+const mascotInteractive = document.getElementById('mascotInteractive');
+const adviceMobileBtn = document.getElementById('adviceMobileBtn');
+
 // Advice handling (previously modal based)
 const adviceList = [
   'Antes de usar un producto, revisa su etiqueta y su hoja de datos de seguridad.',
@@ -697,10 +702,7 @@ function showNextAdvice() {
   if (mascotBubble) mascotBubble.textContent = advice;
   // Reset inactivity timer so greeting appears after 60s of no clicks
   resetAdviceTimer();
-  // Optional alert for mobile visibility
-  if (window.innerWidth <= 768) {
-    alert(advice);
-  }
+  // Mobile alert removed: advice shown directly in the bubble for all devices.
 }
 
 // Attach click listeners
@@ -727,3 +729,27 @@ updateUrlParams(); // Check URL parameters state
 renderAreas();
 renderHazards();
 render();
+
+// Back-to-top button functionality
+const backToTopBtn = document.getElementById('backToTopBtn');
+if (backToTopBtn) {
+  const toggleBackToTop = () => {
+    if (window.scrollY > 300) {
+      backToTopBtn.classList.add('show');
+    } else {
+      backToTopBtn.classList.remove('show');
+    }
+  };
+  // Initial check
+  toggleBackToTop();
+  window.addEventListener('scroll', toggleBackToTop);
+
+  backToTopBtn.addEventListener('click', (e) => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      window.scrollTo(0, 0);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+}

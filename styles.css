@@ -1676,6 +1676,8 @@ footer strong {
   .cards {
     grid-template-columns: 1fr;
   }
+}
+
 /* Back-to-top floating button */
 .back-to-top {
   position: fixed;
@@ -1706,4 +1708,7 @@ footer strong {
   background: #004999;
   outline: none;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top { transition: none; }
 }
