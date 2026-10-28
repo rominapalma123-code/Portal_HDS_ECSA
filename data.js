@@ -24,7 +24,7 @@ window.HDS_DATA = [
     "componentes": "Hidroxido de Sodio 50%",
     "estado": "Diluido",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1Ba-JFdXTXc-j1JOKvzLv949y7bYSL1I6/view?usp=drivesdk"
   },
   {
     "area": "Suministros",
@@ -33,7 +33,7 @@ window.HDS_DATA = [
     "componentes": "Anti incrustante",
     "estado": "Diluido",
     "clase": "No aplica según Nch 382",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1h9twn2ilmenCBH0Q62Izbd0ioIcq6AKP/view?usp=drivesdk"
   },
   {
     "area": "Suministros",
@@ -42,7 +42,7 @@ window.HDS_DATA = [
     "componentes": "Hipoclorito de Sodio 10-20%",
     "estado": "Diluido",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/172I7YWQmobpFCKTISLZp1EUR07Bc5hEz/view?usp=drivesdk"
   },
   {
     "area": "Suministros",
@@ -51,7 +51,7 @@ window.HDS_DATA = [
     "componentes": "",
     "estado": "Concentrado",
     "clase": "No aplica según Nch 382",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/17Ht5zO0yoOkhSo7oXcreGo5LHpy5yYy4/view?usp=drivesdk"
   },
   {
     "area": "Suministros",
@@ -60,7 +60,7 @@ window.HDS_DATA = [
     "componentes": "Ciclohexilamina 10-30%\nAlquilamina subsituida 5-10%\nAlquilamina substituida 1-5%",
     "estado": "Concentrado",
     "clase": "Clase 8 Sustancias corrosivas y Clase 3 Líquidos inflamables",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1cCQJkcodpNfPpHSvmhG5Njta3rBP9v8-/view?usp=drivesdk"
   },
   {
     "area": "Suministros",
@@ -96,7 +96,7 @@ window.HDS_DATA = [
     "componentes": "Tensoactivo no iónico 30-60%\nAlquil poliglicósido no iónico 10-30%",
     "estado": "Concentrado",
     "clase": "No aplica según Nch 382",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1krekbqnz5OcMMAx4trDpG-f9jsVtXa2e/view?usp=drivesdk"
   },
   {
     "area": "Suministros",
@@ -105,7 +105,7 @@ window.HDS_DATA = [
     "componentes": "Sal Inorganica 60 - 100%\nMetabisulfito de sodio 1-5%",
     "estado": "Concentrado",
     "clase": "No aplica según Nch 382",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1IzohtKz-tMiwxRiZBC3eHE3PwDgvG3NN/view?usp=drivesdk"
   },
   {
     "area": "Suministros",
@@ -114,7 +114,7 @@ window.HDS_DATA = [
     "componentes": "Sal Inorganica 60 - 100%\nMetabisulfito de sodio 1-5%",
     "estado": "Diluido",
     "clase": "No aplica según Nch 382",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1IzohtKz-tMiwxRiZBC3eHE3PwDgvG3NN/view?usp=drivesdk"
   },
   {
     "area": "Suministros",
@@ -123,7 +123,7 @@ window.HDS_DATA = [
     "componentes": "Hipoclorito de Sodio 10-20%",
     "estado": "Diluido",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/172I7YWQmobpFCKTISLZp1EUR07Bc5hEz/view?usp=drivesdk"
   },
   {
     "area": "Suministros",
@@ -132,7 +132,7 @@ window.HDS_DATA = [
     "componentes": "",
     "estado": "Concentrado",
     "clase": "",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1FgBsdccUtfjdn2Vt77aSa6XF-HY9wlOg/view?usp=drivesdk"
   },
   {
     "area": "Suministros",
@@ -150,7 +150,7 @@ window.HDS_DATA = [
     "componentes": "Nitrógeno",
     "estado": "Concentrado",
     "clase": "Clase 2.2 Gases no inflamables",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1QUZ7rM9m6mq4mxwI6AjWHvXBdtlqMurL/view?usp=drivesdk"
   },
   {
     "area": "Formulación",
@@ -159,7 +159,7 @@ window.HDS_DATA = [
     "componentes": "Acido Nitrico 30-40%\nÁcido Fosfórico 5-10%",
     "estado": "Diluido",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/16x6DymZLGiDbv26iPmyO7VtjqrcPU3pB/view?usp=drivesdk"
   },
   {
     "area": "Formulación",
@@ -168,7 +168,7 @@ window.HDS_DATA = [
     "componentes": "Acido amino trimetilen fosfónico 1%\nHidróxido de Sodio 40-60%",
     "estado": "Diluido",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1Ba-JFdXTXc-j1JOKvzLv949y7bYSL1I6/view?usp=drivesdk"
   },
   {
     "area": "Formulación",
@@ -177,7 +177,7 @@ window.HDS_DATA = [
     "componentes": "Peróxido de hidrógeno 15-30%\nÁcido acético 10-30%\nÁcido peracético 10-30%",
     "estado": "Diluido",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1_SnlM8IXi9HorhrNPThX3DffnJYeHQ3m/view?usp=drivesdk"
   },
   {
     "area": "Producción",
@@ -186,7 +186,7 @@ window.HDS_DATA = [
     "componentes": "Acido amino trimetilen fosfónico 1%\nHidróxido de Sodio 40-60%",
     "estado": "Concentrado",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1Ba-JFdXTXc-j1JOKvzLv949y7bYSL1I6/view?usp=drivesdk"
   },
   {
     "area": "Producción",
@@ -195,7 +195,7 @@ window.HDS_DATA = [
     "componentes": "Chloruro sódico 10-20%\nHipoclorito de sodio 10-20%\nActive Chlorine 10-20%",
     "estado": "Concentrado",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/172I7YWQmobpFCKTISLZp1EUR07Bc5hEz/view?usp=drivesdk"
   },
   {
     "area": "Producción",
@@ -213,7 +213,7 @@ window.HDS_DATA = [
     "componentes": "Acido Nitrico 30-40%\nÁcido Fosfórico 5-10%",
     "estado": "Concentrado",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/16x6DymZLGiDbv26iPmyO7VtjqrcPU3pB/view?usp=drivesdk"
   },
   {
     "area": "Producción",
@@ -231,7 +231,7 @@ window.HDS_DATA = [
     "componentes": "Chloruro sódico 3-10%\nHipoclorito de sodio 3-10%\nHidróxido de sodio 3-10%\nÓxido de amina lauril-dimetílica 1-3%\nTricarboxilato fosfono butano sódico 1-3%\nClorato de sodio 0,1-1%",
     "estado": "Diluido",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/167wBrDe2to6SQcuIdWOBUXTVCCBpzd7F/view?usp=drivesdk"
   },
   {
     "area": "Producción Linea 1",
@@ -240,7 +240,7 @@ window.HDS_DATA = [
     "componentes": "Acido Nitrico 30-40%\nÁcido Fosfórico 5-10%",
     "estado": "Diluido",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1CTUC9kyZiUoCGYDYGD_cKBECx0UDlxC-/view?usp=drivesdk"
   },
   {
     "area": "Producción Linea 1",
@@ -249,7 +249,7 @@ window.HDS_DATA = [
     "componentes": "Peróxido de hidrógeno 15-30%\nÁcido acético 10-30%\nÁcido peracético 10-30%",
     "estado": "Diluido",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1_SnlM8IXi9HorhrNPThX3DffnJYeHQ3m/view?usp=drivesdk"
   },
   {
     "area": "Producción Linea 1",
@@ -294,7 +294,7 @@ window.HDS_DATA = [
     "componentes": "Peróxido de hidrógeno 15-30%\nÁcido acético 10-30%\nÁcido peracético 10-30%",
     "estado": "Diluido",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1_SnlM8IXi9HorhrNPThX3DffnJYeHQ3m/view?usp=drivesdk"
   },
   {
     "area": "Producción Linea Apet",
@@ -303,7 +303,7 @@ window.HDS_DATA = [
     "componentes": "Acido Nitrico 30-40%\nÁcido Fosfórico 5-10%",
     "estado": "Diluido",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/16x6DymZLGiDbv26iPmyO7VtjqrcPU3pB/view?usp=drivesdk"
   },
   {
     "area": "Producción Linea Apet",
@@ -312,7 +312,7 @@ window.HDS_DATA = [
     "componentes": "Acido amino trimetilen fosfónico 1%\nHidróxido de Sodio 40-60%",
     "estado": "Diluido",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1Ba-JFdXTXc-j1JOKvzLv949y7bYSL1I6/view?usp=drivesdk"
   },
   {
     "area": "Suministros",
@@ -330,7 +330,7 @@ window.HDS_DATA = [
     "componentes": "",
     "estado": "",
     "clase": "",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1oiyxnq4G73VgMMmpus13kC2QUlfxSo70/view?usp=drivesdk"
   },
   {
     "area": "Suministros",
@@ -348,7 +348,7 @@ window.HDS_DATA = [
     "componentes": "Chloruro sódico 10-20%\nHipoclorito de sodio 10-20%\nActive Chlorine 10-20%",
     "estado": "Concentrado",
     "clase": "Clase 8 Sustancias corrosivas",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/172I7YWQmobpFCKTISLZp1EUR07Bc5hEz/view?usp=drivesdk"
   },
   {
     "area": "Mantención",
@@ -357,7 +357,7 @@ window.HDS_DATA = [
     "componentes": "Mezcla de aceites sinteticos, espesantes, aditivos y MicPol",
     "estado": "Concentrado",
     "clase": "No aplica según Nch 382",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1_u5QKmmSHVryMUSJTCnp4ByILYQqxzQm/view?usp=drivesdk"
   },
   {
     "area": "Mantención",
@@ -429,7 +429,7 @@ window.HDS_DATA = [
     "componentes": "Hydrocarbons, C7-C9, isoalkanes 10-25%\nButano 10-25%\nPropano 10-25%\nIsobutano 10-25%",
     "estado": "Concentrado",
     "clase": "Clase 2.1 Gases inflamables",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1l-yxsO9aJtfzizECR4qi9Kg39Wq4KNqD/view?usp=drivesdk"
   },
   {
     "area": "Mantención",
@@ -438,7 +438,7 @@ window.HDS_DATA = [
     "componentes": "",
     "estado": "",
     "clase": "",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/12s4wEV3hraVQp9e6kpoTvw7gdToy-bkv/view?usp=drivesdk"
   },
   {
     "area": "Mantención",
@@ -618,7 +618,7 @@ window.HDS_DATA = [
     "componentes": "Hydrocarbons, C7-C9, isoalkanes 10-25%\nButano 10-25%\nPropano 10-25%\nIsobutano 10-25%\nSulfonic acids, petroleum, calcium salts 1-5%\nBenzenesulfonic acid, C10-16- alkyl derivs., calcium salts 1-5%\nBenzenesulfonic acid, mono- C16-24-alkyl derivs., calcium salts 1-5%",
     "estado": "Concentrado",
     "clase": "Clase 2.1 Gases inflamables",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1XILpDn9QEDqvOk94-Hm9_6QT67bFaN7q/view?usp=drivesdk"
   },
   {
     "area": "Calidad",
@@ -717,7 +717,7 @@ window.HDS_DATA = [
     "componentes": "",
     "estado": "Concentrado",
     "clase": "",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1ucQhwHTvp6wqGKS1jvu4jcE0J4IV0uzB/view?usp=drivesdk"
   },
   {
     "area": "Calidad",
@@ -753,7 +753,7 @@ window.HDS_DATA = [
     "componentes": "",
     "estado": "Concentrado",
     "clase": "",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1v2-gOw1HwFqTVmb1sfpCrwEqW-1tz6VW/view?usp=drivesdk"
   },
   {
     "area": "Calidad",
@@ -825,7 +825,7 @@ window.HDS_DATA = [
     "componentes": "",
     "estado": "Concentrado",
     "clase": "",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1TYeb9LxaEMf3wLPGfKW4srGCtuXqnnIf/view?usp=drivesdk"
   },
   {
     "area": "Calidad",
@@ -834,7 +834,7 @@ window.HDS_DATA = [
     "componentes": "",
     "estado": "Concentrado",
     "clase": "",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/124271SAApMUlA2QdJbU62ymPUv171pX0/view?usp=drivesdk"
   },
   {
     "area": "Calidad",
@@ -843,7 +843,7 @@ window.HDS_DATA = [
     "componentes": "",
     "estado": "Concentrado",
     "clase": "",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1pHfxym579z9-XU6uMe3li_YbLKIiZDjh/view?usp=drivesdk"
   },
   {
     "area": "Calidad",
@@ -852,7 +852,7 @@ window.HDS_DATA = [
     "componentes": "",
     "estado": "",
     "clase": "",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1ykFxBoMhpufAdreIoFcGlgfS6bFVLIgo/view?usp=drivesdk"
   },
   {
     "area": "Calidad",
@@ -870,7 +870,7 @@ window.HDS_DATA = [
     "componentes": "",
     "estado": "",
     "clase": "",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/17o_lVeN3abdcQTJ-BgOQ5WhgHAtdflyI/view?usp=drivesdk"
   },
   {
     "area": "Calidad",
@@ -888,7 +888,7 @@ window.HDS_DATA = [
     "componentes": "",
     "estado": "",
     "clase": "",
-    "hdsUrl": ""
+    "hdsUrl": "https://drive.google.com/file/d/1X4gvh_DZK8wFTIDel_IQpKXrczoiUNQv/view?usp=drivesdk"
   },
   {
     "area": "Calidad",
