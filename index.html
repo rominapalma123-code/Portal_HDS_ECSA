@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=hds-20261028-1">
 </head>
 <body>
 
@@ -90,10 +90,10 @@
         <!-- Hazard Filters -->
         <div class="filter-group">
           <div class="filter-header">
-            <h3>Clase de Peligro NCh 382</h3>
+            <h3>Clase del listado interno</h3>
             <button id="clearHazard" class="linkbtn">Ver todas</button>
           </div>
-          <div id="hazards" class="hazard-grid"></div>
+          <p class="help-text">Filtro del listado interno; consulta la clasificación vigente en la HDS.</p><div id="hazards" class="hazard-grid"></div>
         </div>
       </aside>
 
@@ -139,54 +139,7 @@
 
       <div class="modal-body">
         
-        <!-- Grid: Safety Info & NFPA Diamond -->
-        <div class="detail-grid">
-          <!-- Safety Info -->
-          <div class="safety-info-col">
-            <div class="detail-section">
-              <h4>Clasificación de Peligro (NCh 382)</h4>
-              <div id="modalHazardTag" class="hazard-badge-large">Clasificación</div>
-            </div>
-
-            <div class="detail-section">
-              <h4>Estado</h4>
-              <span id="modalEstadoBadge" class="tag">Estado</span>
-            </div>
-
-            <div class="detail-section">
-              <h4>Componentes Activos</h4>
-              <div id="modalComponents" class="component-list"></div>
-            </div>
-          </div>
-
-          <!-- NFPA Diamond Visualization -->
-          <div class="nfpa-col">
-            <h4>Rombo de Seguridad NFPA 704</h4>
-            <p class="nfpa-sub">Estimado según clasificación NCh 382</p>
-            <div class="nfpa-diamond-container">
-              <div class="nfpa-diamond">
-                <div class="nfpa-quad blue" title="Salud"><span id="nfpaSalud">3</span></div>
-                <div class="nfpa-quad red" title="Inflamabilidad"><span id="nfpaInflamabilidad">0</span></div>
-                <div class="nfpa-quad yellow" title="Inestabilidad / Reactividad"><span id="nfpaInestabilidad">0</span></div>
-                <div class="nfpa-quad white" title="Riesgo Especial"><span id="nfpaEspecial">-</span></div>
-              </div>
-            </div>
-            <div class="nfpa-legend">
-              <div><span class="dot blue"></span> <strong>Salud:</strong> <span id="nfpaSaludTxt">Peligro</span></div>
-              <div><span class="dot red"></span> <strong>Inflamabilidad:</strong> <span id="nfpaInflamabilidadTxt">Peligro</span></div>
-              <div><span class="dot yellow"></span> <strong>Inestabilidad:</strong> <span id="nfpaInestabilidadTxt">Peligro</span></div>
-              <div><span class="dot white"></span> <strong>Riesgo Especial:</strong> <span id="nfpaEspecialTxt">-</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- First Aid Protocol based on Hazard -->
-        <div class="detail-section protocol-section">
-          <h4>🚨 Primeros Auxilios y Medidas de Emergencia</h4>
-          <div id="modalProtocol" class="protocol-box">
-            <!-- Rendered dynamically -->
-          </div>
-        </div>
+        <div id="modalHdsContent" aria-live="polite"></div>
 
         <!-- PDF Attachment / URL Editor -->
         <div class="pdf-admin-section">
@@ -310,13 +263,13 @@
 
   <footer>
     <p><strong>Portal HDS v2.0 - Seguridad y Salud Ocupacional</strong> · Creado a partir del Listado Maestro LM-SSO-SEG-003</p>
-    <p>Esta base de datos permite almacenar localmente enlaces personalizados a las HDS PDF en cada navegador sin alterar los datos originales.</p>
+    <p>Las fichas muestran extractos de las HDS procesadas. Consulta el PDF completo y la fecha del documento. Los cambios en Drive requieren volver a procesar la HDS.</p>
   </footer>
 
   <button id="backToTopBtn" class="back-to-top" aria-label="Volver al inicio" type="button">&#8679;</button>
 
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <script src="data.js?v=hds-20261028-1"></script>
+  <script src="app.js?v=hds-20261028-1"></script>
 
 </body>
 </html>

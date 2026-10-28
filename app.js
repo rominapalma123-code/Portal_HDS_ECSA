@@ -9,7 +9,7 @@ const data = rawData.map(item => {
   const key = `${item.producto}||${item.area || ''}`;
   return {
     ...item,
-    hdsUrl: localHdsUrls[key] !== undefined ? localHdsUrls[key] : (item.hdsUrl || '')
+    hdsUrl: localHdsUrls[key] || item.hdsUrl || ''
   };
 });
 
@@ -33,10 +33,6 @@ const closeDetailModal = document.getElementById('closeDetailModal');
 const modalTitle = document.getElementById('modalTitle');
 const modalAreaBadge = document.getElementById('modalAreaBadge');
 const modalLocationText = document.getElementById('modalLocationText');
-const modalHazardTag = document.getElementById('modalHazardTag');
-const modalEstadoBadge = document.getElementById('modalEstadoBadge');
-const modalComponents = document.getElementById('modalComponents');
-const modalProtocol = document.getElementById('modalProtocol');
 const modalPdfTitle = document.getElementById('modalPdfTitle');
 const modalPdfSub = document.getElementById('modalPdfSub');
 const modalViewPdfBtn = document.getElementById('modalViewPdfBtn');
@@ -44,14 +40,6 @@ const inputPdfUrl = document.getElementById('inputPdfUrl');
 const savePdfUrlBtn = document.getElementById('savePdfUrlBtn');
 
 // NFPA Diamond selectors
-const nfpaSalud = document.getElementById('nfpaSalud');
-const nfpaInflamabilidad = document.getElementById('nfpaInflamabilidad');
-const nfpaInestabilidad = document.getElementById('nfpaInestabilidad');
-const nfpaEspecial = document.getElementById('nfpaEspecial');
-const nfpaSaludTxt = document.getElementById('nfpaSaludTxt');
-const nfpaInflamabilidadTxt = document.getElementById('nfpaInflamabilidadTxt');
-const nfpaInestabilidadTxt = document.getElementById('nfpaInestabilidadTxt');
-const nfpaEspecialTxt = document.getElementById('nfpaEspecialTxt');
 
 // Emergency Modal selectors
 const emergencyBtn = document.getElementById('emergencyBtn');
@@ -208,7 +196,8 @@ function render() {
   // Render cards
   cardsEl.innerHTML = filtered.map(x => {
     const hazardCode = getHazardClass(x.clase);
-    const hazardLabel = x.clase ? x.clase.split(' ')[0] + ' ' + (x.clase.split(' ').slice(1).join(' ') || '') : 'Sin Clasificar';
+    const doc = getSourceDocument(x);
+    const hazardLabel = doc ? 'Peligros según HDS · Ver ficha' : 'HDS pendiente de lectura';
     
     return `
     <article class="card ${hazardCode}" data-key="${escapeHtml(x.producto)}||${escapeHtml(x.area || '')}">
@@ -218,7 +207,7 @@ function render() {
       
       <div class="meta">
         ${x.area ? `<span class="tag tag-area">${escapeHtml(x.area)}</span>` : ''}
-        ${x.estado ? `<span class="tag tag-estado">${escapeHtml(x.estado)}</span>` : ''}
+        ${x.estado ? `<span class="tag tag-estado">${escapeHtml(x.estado)} · uso interno</span>` : ''}
       </div>
 
       <div class="card-details">
@@ -250,7 +239,7 @@ function render() {
           </span>
         `}
         <button class="card-action-btn" data-key="${escapeHtml(x.producto)}||${escapeHtml(x.area || '')}">
-          Ficha Técnica
+          Ver ficha HDS
         </button>
       </div>
     </article>
@@ -272,154 +261,6 @@ function render() {
   emptyEl.classList.toggle('hidden', filtered.length > 0);
 }
 
-// NFPA 704 Estimation Logic
-function getNfpaEstimates(hazardClass, productName = '') {
-  const name = norm(productName);
-  
-  switch(hazardClass) {
-    case 'clase-3': // Inflamable
-      return { salud: 2, inflamabilidad: 3, reactividad: 0, especial: '-' };
-    case 'clase-8': // Corrosivo
-      // Acids / Bases
-      if (name.includes('acido nitrico')) {
-        return { salud: 3, inflamabilidad: 0, reactividad: 1, especial: 'OX' };
-      }
-      return { salud: 3, inflamabilidad: 0, reactividad: 1, especial: 'COR' };
-    case 'clase-2': // Gases
-      if (name.includes('nitrogeno') || name.includes('carbono')) {
-        return { salud: 1, inflamabilidad: 0, reactividad: 0, especial: 'SA' }; // Simple Asphyxiant
-      }
-      return { salud: 1, inflamabilidad: 0, reactividad: 0, especial: '-' };
-    case 'clase-6': // Toxico
-      return { salud: 3, inflamabilidad: 1, reactividad: 0, especial: '-' };
-    case 'clase-9': // Varios
-      return { salud: 1, inflamabilidad: 1, reactividad: 0, especial: '-' };
-    case 'clase-none':
-    default:
-      return { salud: 0, inflamabilidad: 0, reactividad: 0, especial: '-' };
-  }
-}
-
-// NFPA Level text descriptions in Spanish
-function getNfpaLevelTxt(dimension, val) {
-  const desc = {
-    salud: {
-      0: "Sin riesgo",
-      1: "Poco peligroso",
-      2: "Peligroso",
-      3: "Muy peligroso",
-      4: "Mortal"
-    },
-    inflamabilidad: {
-      0: "No inflama",
-      1: "Sobre 93°C",
-      2: "Bajo 93°C",
-      3: "Bajo 37°C",
-      4: "Bajo 25°C"
-    },
-    inestabilidad: {
-      0: "Estable",
-      1: "Inestable al calor",
-      2: "Cambio químico violento",
-      3: "Detona por golpe/calor",
-      4: "Puede detonar"
-    },
-    especial: {
-      '-': "Ninguno",
-      'COR': "Corrosivo",
-      'OX': "Oxidante",
-      'W': "Reacciona con agua",
-      'SA': "Asfixiante simple"
-    }
-  };
-  return desc[dimension][val] || "Desconocido";
-}
-
-// Emergency measure protocols in Spanish based on risk
-function getEmergencyProtocol(hazardClass) {
-  switch (hazardClass) {
-    case 'clase-3':
-      return `
-        <div class="protocol-item">
-          <span class="protocol-label">🔥 FUEGO:</span>
-          <span class="protocol-text">Usar espuma resistente al alcohol, CO2 o polvo químico seco. Detener la fuga si es seguro. Enfriar envases con agua pulverizada.</span>
-        </div>
-        <div class="protocol-item">
-          <span class="protocol-label">💨 INHALACIÓN:</span>
-          <span class="protocol-text">Llevar al paciente al aire fresco. Si no respira, aplicar RCP. Buscar atención médica.</span>
-        </div>
-        <div class="protocol-item">
-          <span class="protocol-label">🧼 PIEL:</span>
-          <span class="protocol-text">Retirar ropa contaminada. Lavar con abundante agua corriente y jabón por 15 minutos.</span>
-        </div>
-        <div class="protocol-item">
-          <span class="protocol-label">🧪 DERRAME:</span>
-          <span class="protocol-text">Eliminar fuentes de ignición. Absorber con arena seca u otro material inerte no inflamable. Ventilar.</span>
-        </div>
-      `;
-    case 'clase-8':
-      return `
-        <div class="protocol-item">
-          <span class="protocol-label">👁️ OJOS:</span>
-          <span class="protocol-text">Enjuagar inmediatamente con abundante agua corriente por 20 minutos manteniendo los párpados abiertos. Acudir al oftalmólogo de urgencia.</span>
-        </div>
-        <div class="protocol-item">
-          <span class="protocol-label">🧼 PIEL:</span>
-          <span class="protocol-text">Quitar ropa y calzado contaminados bajo ducha de emergencia. Enjuagar con agua corriente durante mínimo 20 minutos.</span>
-        </div>
-        <div class="protocol-item">
-          <span class="protocol-label">💨 INHALACIÓN:</span>
-          <span class="protocol-text">Llevar al paciente a una zona ventilada. Si hay dificultad respiratoria, suministrar oxígeno (sólo personal capacitado).</span>
-        </div>
-        <div class="protocol-item">
-          <span class="protocol-label">🤢 INGESTIÓN:</span>
-          <span class="protocol-text">Lavar la boca. NO inducir el vómito. Dar a beber 1 o 2 vasos de agua. Llamar de inmediato al CITUC (+56 2 2635 3800).</span>
-        </div>
-      `;
-    case 'clase-2':
-      return `
-        <div class="protocol-item">
-          <span class="protocol-label">💨 INHALACIÓN:</span>
-          <span class="protocol-text">Asfixia por desplazamiento de oxígeno. Llevar a la persona al aire libre de inmediato. Usar equipo de respiración autónoma si hay sospecha de alta concentración.</span>
-        </div>
-        <div class="protocol-item">
-          <span class="protocol-label">🥶 CONGELACIÓN:</span>
-          <span class="protocol-text">Para gases criogénicos (líquidos): Enjuagar la zona con abundante agua tibia. No aplicar calor seco. Trasladar a un centro asistencial.</span>
-        </div>
-        <div class="protocol-item">
-          <span class="protocol-label">🧪 DERRAME:</span>
-          <span class="protocol-text">Cerrar la válvula de paso si es seguro hacerlo. Ventilar ampliamente el área afectada. Evacuar.</span>
-        </div>
-      `;
-    case 'clase-6':
-      return `
-        <div class="protocol-item">
-          <span class="protocol-label">🤢 INGESTIÓN:</span>
-          <span class="protocol-text">¡PELIGRO DE ENVENENAMIENTO! Llamar urgentemente al CITUC y trasladar al paciente. No provocar vómito a menos que lo indique un médico.</span>
-        </div>
-        <div class="protocol-item">
-          <span class="protocol-label">💨 INHALACIÓN:</span>
-          <span class="protocol-text">Llevar a un lugar ventilado. Suministrar ventilación artificial si deja de respirar.</span>
-        </div>
-        <div class="protocol-item">
-          <span class="protocol-label">🧼 PIEL/OJOS:</span>
-          <span class="protocol-text">Lavar con abundante agua durante 15 minutos. Usar guantes gruesos para socorrer al afectado y no contaminarse.</span>
-        </div>
-      `;
-    default:
-      return `
-        <div class="protocol-item">
-          <span class="protocol-label">ℹ️ PREVENCIÓN:</span>
-          <span class="protocol-text">Evitar contacto ocular prolongado y uso de ropa de protección estándar. Lavar las manos tras manipular la sustancia.</span>
-        </div>
-        <div class="protocol-item">
-          <span class="protocol-label">🧼 ATENCIÓN:</span>
-          <span class="protocol-text">En caso de malestar o salpicadura en ojos, enjuagar con abundante agua limpia. Si persisten molestias, acudir al médico.</span>
-        </div>
-      `;
-  }
-}
-
 // Open details modal
 function openProductModal(key) {
   const item = data.find(x => `${x.producto}||${x.area || ''}` === key);
@@ -432,47 +273,7 @@ function openProductModal(key) {
   modalTitle.textContent = item.producto;
   modalAreaBadge.textContent = item.area || 'Sin Área';
   modalLocationText.textContent = item.ubicacion || 'No especificada';
-  modalEstadoBadge.textContent = item.estado || 'No especificado';
-  
-  // Class tag styling
-  modalHazardTag.className = `hazard-badge-large ${hazardCode}`;
-  modalHazardTag.textContent = item.clase || 'No aplica según NCh 382';
-
-  // Components list formatting
-  if (item.componentes) {
-    const listHtml = item.componentes.split('\n').filter(Boolean).map(c => `
-      <div class="component-item">${escapeHtml(c.trim())}</div>
-    `).join('');
-    modalComponents.innerHTML = listHtml;
-  } else {
-    modalComponents.innerHTML = `<div class="component-item" style="color: var(--text-light); font-style: italic;">Sin componentes cargados en el listado.</div>`;
-  }
-
-  // Emergency protocols
-  const protocolContainer = document.getElementById('modalProtocol');
-  protocolContainer.innerHTML = getEmergencyProtocol(hazardCode);
-  
-  // Styling safety colors inside protocol box based on class
-  if (hazardCode === 'clase-none') {
-    protocolContainer.className = 'protocol-box safe-protocol';
-  } else {
-    protocolContainer.className = 'protocol-box';
-  }
-
-  // NFPA 704 Diamond values setup
-  const nfpa = getNfpaEstimates(hazardCode, item.producto);
-  
-  nfpaSalud.textContent = nfpa.salud;
-  nfpaSaludTxt.textContent = `${nfpa.salud} (${getNfpaLevelTxt('salud', nfpa.salud)})`;
-
-  nfpaInflamabilidad.textContent = nfpa.inflamabilidad;
-  nfpaInflamabilidadTxt.textContent = `${nfpa.inflamabilidad} (${getNfpaLevelTxt('inflamabilidad', nfpa.inflamabilidad)})`;
-
-  nfpaInestabilidad.textContent = nfpa.reactividad;
-  nfpaInestabilidadTxt.textContent = `${nfpa.reactividad} (${getNfpaLevelTxt('inestabilidad', nfpa.reactividad)})`;
-
-  nfpaEspecial.textContent = nfpa.especial;
-  nfpaEspecialTxt.textContent = nfpa.especial !== '-' ? `${nfpa.especial} (${getNfpaLevelTxt('especial', nfpa.especial)})` : 'Ninguno';
+  renderHdsInformation(item);
 
   // PDF Status setup
   if (item.hdsUrl) {
@@ -521,6 +322,8 @@ function saveHdsPdfUrl() {
   if (datasetItem) {
     datasetItem.hdsUrl = urlValue;
   }
+
+  if (datasetItem) renderHdsInformation(datasetItem);
 
   // Refresh modal elements for PDF
   if (urlValue) {
@@ -752,4 +555,66 @@ if (backToTopBtn) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   });
+}
+// A source record applies only to its exact PDF ID. Changing a link invalidates the displayed extract.
+function getSourceDocument(item) {
+  if (!item || !item.hdsUrl) return null;
+  try {
+    const url = new URL(item.hdsUrl);
+    if (url.hostname !== 'drive.google.com') return null;
+    const match = url.pathname.match(/\/file\/d\/([^/]+)/);
+    const id = match ? match[1] : url.searchParams.get('id');
+    return (window.HDS_DOCUMENTS || {})[id] || null;
+  } catch (_) { return null; }
+}
+
+function hdsSection(doc, key, title, expanded) {
+  const section = doc.sections[key];
+  if (!section || !section.text) return `<section class="hds-section"><h4>${escapeHtml(title)}</h4><p class="hds-empty">Consulta este apartado en el PDF. No hay un extracto disponible.</p></section>`;
+  return `<section class="hds-section"><h4>${escapeHtml(title)}</h4>
+    <p class="hds-caption">${escapeHtml(section.title)}${section.page ? ' · página ' + section.page : ''}</p>
+    <details class="hds-raw" ${expanded ? 'open' : ''}><summary>Leer texto de la HDS</summary><div class="hds-excerpt">${escapeHtml(section.text)}</div></details>
+  </section>`;
+}
+
+function renderHdsInformation(item) {
+  const container = document.getElementById('modalHdsContent');
+  if (!container) return;
+  const doc = getSourceDocument(item);
+  const internal = `<p class="hds-internal"><strong>Dato de uso interno:</strong> ${escapeHtml(item.estado || 'Sin estado registrado')}. Área y ubicación corresponden al listado de planta. La HDS describe el producto suministrado; sus concentraciones no describen necesariamente una dilución de uso.</p>`;
+  if (!doc) {
+    container.innerHTML = `<div class="hds-empty"><strong>Información de la HDS pendiente de lectura</strong><p>${item.hdsUrl ? 'El PDF está disponible. Consulta su clasificación, composición y primeros auxilios en el documento.' : 'Aún no se ha asociado una HDS a este producto.'}</p></div>` + internal;
+    return;
+  }
+  let content = `<div class="hds-source"><strong>Información del documento HDS</strong>
+    <p>${escapeHtml(doc.fileName)}</p>
+    ${doc.documentDate ? `<p>Fecha declarada en la HDS: ${escapeHtml(doc.documentDate)}</p>` : ''}
+    <p>Lectura incorporada al portal: ${escapeHtml(doc.processedAt)}</p>
+    <p><a href="${escapeHtml(doc.url)}" target="_blank" rel="noopener">Abrir documento fuente completo ↗</a></p>
+  </div>`;
+  if (doc.summary) {
+    const summary = doc.summary;
+    content += `<section class="hds-section"><h4>Etiqueta SGA · sección 2</h4>
+      <div class="hds-label">${doc.pictogramImage ? `<img class="hds-pictogram" src="${doc.pictogramImage}" alt="SGA: corrosión. Pictograma extraído de la HDS Resource.">` : ''}
+      <div><span class="hds-signal">${escapeHtml(summary.signalWord)}</span><p>${escapeHtml(summary.pictogramLabel)}</p></div></div>
+      <ul>${summary.classifications.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>
+      <div class="hds-excerpt">${escapeHtml(summary.hazardStatements.join('\n'))}</div>
+    </section>`;
+    content += `<section class="hds-section"><h4>Composición · sección 3</h4><table><thead><tr><th>Componente</th><th>CAS</th><th>% en peso</th></tr></thead><tbody>${summary.components.map(x=>`<tr><td>${escapeHtml(x.name)}</td><td>${escapeHtml(x.cas)}</td><td>${escapeHtml(x.percentage)}</td></tr>`).join('')}</tbody></table><p class="hds-caption">Rangos declarados para el producto suministrado.</p></section>`;
+    content += `<section class="hds-section"><h4>Primeros auxilios · sección 4.1</h4>${summary.aid.map(x=>`<div class="hds-aid"><strong>${escapeHtml(x.route)}</strong><p>${escapeHtml(x.text)}</p></div>`).join('')}<p class="hds-caption">Revisa también los síntomas y las indicaciones para el personal médico en la sección 4 completa.</p></section>`;
+  } else {
+    content += `<section class="hds-section"><h4>Etiqueta y peligros declarados en la HDS</h4><p class="hds-caption">Imagen del documento fuente. Conserva sus pictogramas, clasificación y señalización tal como aparecen en el PDF.</p>`;
+    if (doc.labelImages && doc.labelImages.length) {
+      content += doc.labelImages.map((img,i)=>`<img class="hds-label-page" src="${img.data}" alt="Peligros declarados en ${escapeHtml(doc.fileName)}, página ${img.page}. El texto accesible se encuentra a continuación." ${i ? 'loading="lazy"' : ''}><p class="hds-caption">Página ${img.page} del documento fuente.</p>`).join('');
+    }
+    content += '</section>';
+    content += hdsSection(doc, 'hazards', 'Identificación de los peligros', false);
+    content += hdsSection(doc, 'components', 'Composición según HDS', true);
+    content += hdsSection(doc, 'aid', 'Primeros auxilios según HDS', true);
+  }
+  if (doc.summary) {
+    content += `<details class="hds-raw"><summary>Ver etiqueta y apartados originales de la HDS</summary>${(doc.labelImages||[]).map(img=>`<img class="hds-label-page" loading="lazy" src="${img.data}" alt="Sección de peligros, página ${img.page} de la HDS Resource.">`).join('')}${hdsSection(doc,'hazards','Sección 2',false)}${hdsSection(doc,'components','Sección 3',false)}${hdsSection(doc,'aid','Sección 4',false)}</details>`;
+  }
+  content += `<p class="hds-caption">Este extracto corresponde al documento indicado y complementa su lectura completa. Si la HDS cambia en Drive, es necesario actualizar la lectura del portal.</p>` + internal;
+  container.innerHTML = content;
 }
