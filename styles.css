@@ -1652,7 +1652,17 @@ footer strong {
   }
   
   .hero-mascot-area {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+  .mascot-bubble {
+    max-width: 260px;
   }
 
   .logo-divider {
