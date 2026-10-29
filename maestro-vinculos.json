@@ -1,0 +1,988 @@
+{
+  "sourceFile": "LM-SSO-SEG-003 Listado Maestro de Sustancias Peligrosas(1).xlsx",
+  "revision": "Historial: revisión 4, 08/06/2026",
+  "matches": {
+    "167wBrDe2to6SQcuIdWOBUXTVCCBpzd7F": {
+      "placements": [
+        {
+          "producto": "Hypofoam",
+          "area": "Producción Linea 1",
+          "ubicacion": "Central de dilución",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 27,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": [
+        {
+          "ubicacion": "Producción - Zona seca sector APet",
+          "sheet": "Tabla suspel",
+          "row": 40,
+          "sustancia": "Hipoclorito de sodio, Chloruro sódico, Hidróxido de sodio 3-10% p/p (HYPOFOAM)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Producción- Zona seca sector Latas",
+          "sheet": "Tabla suspel",
+          "row": 43,
+          "sustancia": "Hipoclorito de sodio, Chloruro sódico, Hidróxido de sodio 3-10% p/p (HYPOFOAM)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "EX torres de Diversey (alm. Momentáneo al lado de la línea apet, calle colindante inamar)",
+          "sheet": "Tabla suspel",
+          "row": 67,
+          "sustancia": "Hipoclorito de sodio, Chloruro sódico, Hidróxido de sodio 3-10% p/p (HYPOFOAM)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        }
+      ]
+    },
+    "1X4gvh_DZK8wFTIDel_IQpKXrczoiUNQv": {
+      "placements": [
+        {
+          "producto": "Yoduro de Potasio 10%",
+          "area": "Calidad",
+          "ubicacion": "Laboratorio Apet",
+          "estado": "",
+          "sheet": "Matriz SUSPEL",
+          "row": 126,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "17o_lVeN3abdcQTJ-BgOQ5WhgHAtdflyI": {
+      "placements": [
+        {
+          "producto": "Tiosulfato de sodio 0,1 N",
+          "area": "Calidad",
+          "ubicacion": "Laboratorio Apet",
+          "estado": "",
+          "sheet": "Matriz SUSPEL",
+          "row": 124,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1ucQhwHTvp6wqGKS1jvu4jcE0J4IV0uzB": {
+      "placements": [
+        {
+          "producto": "Nitrato de Plata 0,02 N",
+          "area": "Calidad",
+          "ubicacion": "Laboratorio Apet",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 107,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1IzohtKz-tMiwxRiZBC3eHE3PwDgvG3NN": {
+      "placements": [
+        {
+          "producto": "Nalco 19 Pulv",
+          "area": "Suministros",
+          "ubicacion": "Calderas",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 13,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        },
+        {
+          "producto": "Nalco 19 Pulv",
+          "area": "Suministros",
+          "ubicacion": "Calderas",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 14,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1XGjoWx18tiDreRHPNSL_h65ELx_5nLLq": {
+      "placements": [],
+      "storageReferences": [
+        {
+          "ubicacion": "Sala Caldera Línea Apet",
+          "sheet": "Tabla suspel",
+          "row": 54,
+          "sustancia": "2-Fosfono-1,2,4-Acido butanotricarboxílico 5-10% p/p (3DTRASAR 3DT465)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Sala caldera L1-L2",
+          "sheet": "Tabla suspel",
+          "row": 59,
+          "sustancia": "2-Fosfono-1,2,4-Acido butanotricarboxílico 5-10% p/p (3DTRASAR 3DT465)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        }
+      ]
+    },
+    "172I7YWQmobpFCKTISLZp1EUR07Bc5hEz": {
+      "placements": [
+        {
+          "producto": "Divosan Hypochlorite",
+          "area": "Suministros",
+          "ubicacion": "Sala de Aguas",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 6,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        },
+        {
+          "producto": "Divosan Hypochlorite",
+          "area": "Suministros",
+          "ubicacion": "Calle Inamar",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 15,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        },
+        {
+          "producto": "Divosan Hypochlorite",
+          "area": "Producción",
+          "ubicacion": "Calle Inamar",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 23,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        },
+        {
+          "producto": "Divosan Hypochlorite",
+          "area": "Suministros",
+          "ubicacion": "Riles",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 40,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": [
+        {
+          "ubicacion": "Sala de Agua",
+          "sheet": "Tabla suspel",
+          "row": 15,
+          "sustancia": "Hipoclorito de Sodio 10-20% p/p, Chloruro sódico 10-20% p/p (Cloro o DIVOSAN HYPOCHLORITE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Planta de tratamiento de Riles",
+          "sheet": "Tabla suspel",
+          "row": 21,
+          "sustancia": "DIVOSAN HYPOCHLORITE",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Servicios Generales - Frente caldera Apet y costado edificio Gerencia",
+          "sheet": "Tabla suspel",
+          "row": 36,
+          "sustancia": "Hipoclorito de Sodio 10-20% p/p, Chloruro sódico 10-20% p/p (Cloro o DIVOSAN HYPOCHLORITE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "EX torres de Diversey (alm. Momentáneo al lado de la línea apet, calle colindante inamar)",
+          "sheet": "Tabla suspel",
+          "row": 66,
+          "sustancia": "Hipoclorito de Sodio 10-20% p/p, Chloruro sódico 10-20% p/p (DIVOSAN HYPOCHLORITE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        }
+      ]
+    },
+    "16x6DymZLGiDbv26iPmyO7VtjqrcPU3pB": {
+      "placements": [
+        {
+          "producto": "Super Dilac",
+          "area": "Formulación",
+          "ubicacion": "Calle Inamar",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 19,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        },
+        {
+          "producto": "Super Dilac",
+          "area": "Producción",
+          "ubicacion": "Calle Inamar",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 25,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        },
+        {
+          "producto": "Super Dilac",
+          "area": "Producción Linea Apet",
+          "ubicacion": "Entrelineas",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 35,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": [
+        {
+          "ubicacion": "Producción- Zona seca sector Apet",
+          "sheet": "Tabla suspel",
+          "row": 48,
+          "sustancia": "Ácido nítrico 30-50% p/p (SUPER DILAC)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "EX torres de Diversey (alm. Momentáneo al lado de la línea apet, calle colindante inamar)",
+          "sheet": "Tabla suspel",
+          "row": 62,
+          "sustancia": "Ácido nítrico 30-50% p/p (SUPER DILAC)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Zona  Cip APET  (costado de sala GEA)",
+          "sheet": "Tabla suspel",
+          "row": 74,
+          "sustancia": "Ácido nítrico 30-50% p/p (SUPER DILAC)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        }
+      ]
+    },
+    "1v2-gOw1HwFqTVmb1sfpCrwEqW-1tz6VW": {
+      "placements": [
+        {
+          "producto": "Solución Buffer pH 10 amonio",
+          "area": "Calidad",
+          "ubicacion": "Laboratorio Apet",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 111,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1QUZ7rM9m6mq4mxwI6AjWHvXBdtlqMurL": {
+      "placements": [
+        {
+          "producto": "Nitrogeno líquido Refrigerado",
+          "area": "Suministros",
+          "ubicacion": "Calle Inamar",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 18,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1gW1GGNY_2k9H4ID_3uDYrxGIzJxAaFn1": {
+      "placements": [
+        {
+          "producto": "Divosan Forte",
+          "area": "Formulación",
+          "ubicacion": "Calle Inamar",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 21,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        },
+        {
+          "producto": "Divosan Forte",
+          "area": "Producción Linea 1",
+          "ubicacion": "Central de dilución",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 29,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        },
+        {
+          "producto": "Divosan Forte",
+          "area": "Producción Linea Apet",
+          "ubicacion": "Entrelineas",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 34,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        }
+      ],
+      "storageReferences": [
+        {
+          "ubicacion": "Sala Cip (costado de oficina de sala de jarabe L1-L2)",
+          "sheet": "Tabla suspel",
+          "row": 35,
+          "sustancia": "Peróxido de hidrógeno 20-30% p/p (DIVOSAN FORTE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Producción- Zona seca sector Latas",
+          "sheet": "Tabla suspel",
+          "row": 44,
+          "sustancia": "Peróxido de hidrógeno 20-30% p/p (DIVOSAN FORTE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Producción- Zona seca sector Apet",
+          "sheet": "Tabla suspel",
+          "row": 46,
+          "sustancia": "Peróxido de hidrógeno 20-30% p/p (DIVOSAN FORTE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "EX torres de Diversey (alm. Momentáneo al lado de la línea apet, calle colindante inamar)",
+          "sheet": "Tabla suspel",
+          "row": 70,
+          "sustancia": "Peróxido de hidrógeno 20-30% p/p (DIVOSAN FORTE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Zona  Cip APET  (costado de sala GEA)",
+          "sheet": "Tabla suspel",
+          "row": 73,
+          "sustancia": "Peróxido de hidrógeno 20-30% p/p (DIVOSAN FORTE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        }
+      ]
+    },
+    "1q8ZItFlJKpIv1DxZfOBrgCjPc4ct6sqL": {
+      "placements": [
+        {
+          "producto": "Resource",
+          "area": "Suministros",
+          "ubicacion": "Sala de Aguas",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 4,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        },
+        {
+          "producto": "Resource",
+          "area": "Formulación",
+          "ubicacion": "Calle Inamar",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 20,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        },
+        {
+          "producto": "Resource",
+          "area": "Producción",
+          "ubicacion": "Calle Inamar",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 22,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        },
+        {
+          "producto": "Resource",
+          "area": "Producción Linea Apet",
+          "ubicacion": "Entrelineas",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 36,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        }
+      ],
+      "storageReferences": [
+        {
+          "ubicacion": "Sala Cip (costado de oficina de sala de jarabe L1-L2)",
+          "sheet": "Tabla suspel",
+          "row": 34,
+          "sustancia": "Hidróxido de Sodio 30-50% ( Soda caustica o RESOURCE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Producción - Sala de llenado Sector Latas",
+          "sheet": "Tabla suspel",
+          "row": 37,
+          "sustancia": "Hidróxido de Sodio 30-50% ( Soda caustica o RESOURCE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Producción- Zona seca sector Apet",
+          "sheet": "Tabla suspel",
+          "row": 47,
+          "sustancia": "Hidróxido de Sodio 30-50% p/p (RESOURCE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "EX torres de Diversey (alm. Momentáneo al lado de la línea apet, calle colindante inamar)",
+          "sheet": "Tabla suspel",
+          "row": 61,
+          "sustancia": "Hidróxido de Sodio 30-50% ( Soda caustica o RESOURCE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Zona  Cip APET  (costado de sala GEA)",
+          "sheet": "Tabla suspel",
+          "row": 72,
+          "sustancia": "Hidróxido de Sodio 30-50% ( Soda caustica o RESOURCE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        }
+      ]
+    },
+    "1CTUC9kyZiUoCGYDYGD_cKBECx0UDlxC-": {
+      "placements": [
+        {
+          "producto": "Dilac Z",
+          "area": "Producción Linea 1",
+          "ubicacion": "Central de dilución",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 28,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": [
+        {
+          "ubicacion": "Producción - Zona seca sector APet",
+          "sheet": "Tabla suspel",
+          "row": 41,
+          "sustancia": "Ácido fosfórico 30-50% (DILAC Z)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Producción- Zona seca sector Latas",
+          "sheet": "Tabla suspel",
+          "row": 45,
+          "sustancia": "Ácido fosfórico 30-50% (DILAC Z)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "EX torres de Diversey (alm. Momentáneo al lado de la línea apet, calle colindante inamar)",
+          "sheet": "Tabla suspel",
+          "row": 69,
+          "sustancia": "Ácido fosfórico 30-50% (DILAC Z)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        }
+      ]
+    },
+    "1XILpDn9QEDqvOk94-Hm9_6QT67bFaN7q": {
+      "placements": [
+        {
+          "producto": "Interflon Food Grease HD2 (aerosol)",
+          "area": "Mantención",
+          "ubicacion": "Bodega de lubricantes",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 70,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1Ba-JFdXTXc-j1JOKvzLv949y7bYSL1I6": {
+      "placements": [
+        {
+          "producto": "Resource",
+          "area": "Suministros",
+          "ubicacion": "Sala de Aguas",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 4,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        },
+        {
+          "producto": "Resource",
+          "area": "Formulación",
+          "ubicacion": "Calle Inamar",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 20,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        },
+        {
+          "producto": "Resource",
+          "area": "Producción",
+          "ubicacion": "Calle Inamar",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 22,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        },
+        {
+          "producto": "Resource",
+          "area": "Producción Linea Apet",
+          "ubicacion": "Entrelineas",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 36,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": [
+        {
+          "ubicacion": "Sala Cip (costado de oficina de sala de jarabe L1-L2)",
+          "sheet": "Tabla suspel",
+          "row": 34,
+          "sustancia": "Hidróxido de Sodio 30-50% ( Soda caustica o RESOURCE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Producción - Sala de llenado Sector Latas",
+          "sheet": "Tabla suspel",
+          "row": 37,
+          "sustancia": "Hidróxido de Sodio 30-50% ( Soda caustica o RESOURCE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Producción- Zona seca sector Apet",
+          "sheet": "Tabla suspel",
+          "row": 47,
+          "sustancia": "Hidróxido de Sodio 30-50% p/p (RESOURCE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "EX torres de Diversey (alm. Momentáneo al lado de la línea apet, calle colindante inamar)",
+          "sheet": "Tabla suspel",
+          "row": 61,
+          "sustancia": "Hidróxido de Sodio 30-50% ( Soda caustica o RESOURCE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Zona  Cip APET  (costado de sala GEA)",
+          "sheet": "Tabla suspel",
+          "row": 72,
+          "sustancia": "Hidróxido de Sodio 30-50% ( Soda caustica o RESOURCE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        }
+      ]
+    },
+    "1pHfxym579z9-XU6uMe3li_YbLKIiZDjh": {
+      "placements": [
+        {
+          "producto": "Test de Cloro libre, Colorimetría",
+          "area": "Calidad",
+          "ubicacion": "Laboratorio Apet",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 121,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1_SnlM8IXi9HorhrNPThX3DffnJYeHQ3m": {
+      "placements": [
+        {
+          "producto": "Divosan Forte",
+          "area": "Formulación",
+          "ubicacion": "Calle Inamar",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 21,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        },
+        {
+          "producto": "Divosan Forte",
+          "area": "Producción Linea 1",
+          "ubicacion": "Central de dilución",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 29,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        },
+        {
+          "producto": "Divosan Forte",
+          "area": "Producción Linea Apet",
+          "ubicacion": "Entrelineas",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 34,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": [
+        {
+          "ubicacion": "Sala Cip (costado de oficina de sala de jarabe L1-L2)",
+          "sheet": "Tabla suspel",
+          "row": 35,
+          "sustancia": "Peróxido de hidrógeno 20-30% p/p (DIVOSAN FORTE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Producción- Zona seca sector Latas",
+          "sheet": "Tabla suspel",
+          "row": 44,
+          "sustancia": "Peróxido de hidrógeno 20-30% p/p (DIVOSAN FORTE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Producción- Zona seca sector Apet",
+          "sheet": "Tabla suspel",
+          "row": 46,
+          "sustancia": "Peróxido de hidrógeno 20-30% p/p (DIVOSAN FORTE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "EX torres de Diversey (alm. Momentáneo al lado de la línea apet, calle colindante inamar)",
+          "sheet": "Tabla suspel",
+          "row": 70,
+          "sustancia": "Peróxido de hidrógeno 20-30% p/p (DIVOSAN FORTE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Zona  Cip APET  (costado de sala GEA)",
+          "sheet": "Tabla suspel",
+          "row": 73,
+          "sustancia": "Peróxido de hidrógeno 20-30% p/p (DIVOSAN FORTE)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        }
+      ]
+    },
+    "1oiyxnq4G73VgMMmpus13kC2QUlfxSo70": {
+      "placements": [
+        {
+          "producto": "Urea Granulada",
+          "area": "Suministros",
+          "ubicacion": "Riles",
+          "estado": "",
+          "sheet": "Matriz SUSPEL",
+          "row": 38,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "124271SAApMUlA2QdJbU62ymPUv171pX0": {
+      "placements": [
+        {
+          "producto": "Standard sodio 100 ppm",
+          "area": "Calidad",
+          "ubicacion": "Laboratorio Apet",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 120,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "16xV_uPPHf1au2OLXC1Z1jK7_Up4T5h60": {
+      "placements": [
+        {
+          "producto": "Super Dilac",
+          "area": "Formulación",
+          "ubicacion": "Calle Inamar",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 19,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        },
+        {
+          "producto": "Super Dilac",
+          "area": "Producción",
+          "ubicacion": "Calle Inamar",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 25,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        },
+        {
+          "producto": "Super Dilac",
+          "area": "Producción Linea Apet",
+          "ubicacion": "Entrelineas",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 35,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        }
+      ],
+      "storageReferences": [
+        {
+          "ubicacion": "Producción- Zona seca sector Apet",
+          "sheet": "Tabla suspel",
+          "row": 48,
+          "sustancia": "Ácido nítrico 30-50% p/p (SUPER DILAC)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "EX torres de Diversey (alm. Momentáneo al lado de la línea apet, calle colindante inamar)",
+          "sheet": "Tabla suspel",
+          "row": 62,
+          "sustancia": "Ácido nítrico 30-50% p/p (SUPER DILAC)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Zona  Cip APET  (costado de sala GEA)",
+          "sheet": "Tabla suspel",
+          "row": 74,
+          "sustancia": "Ácido nítrico 30-50% p/p (SUPER DILAC)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        }
+      ]
+    },
+    "1FgBsdccUtfjdn2Vt77aSa6XF-HY9wlOg": {
+      "placements": [
+        {
+          "producto": "Dioxido de Carbono",
+          "area": "Suministros",
+          "ubicacion": "Calle principal",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 16,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1eDc9nAdqnsH4xeONQIQ5HK-ITnL-zbzH": {
+      "placements": [
+        {
+          "producto": "Krones Celerol FL7201",
+          "area": "Mantención",
+          "ubicacion": "Bodega de lubricantes",
+          "estado": "",
+          "sheet": "Matriz SUSPEL",
+          "row": 62,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1x7gC6kP9KfLg-9UXPY9kBphazWNiQltP": {
+      "placements": [],
+      "storageReferences": [
+        {
+          "ubicacion": "Planta de tratamiento de Riles",
+          "sheet": "Tabla suspel",
+          "row": 20,
+          "sustancia": "Espuma Clorada (CLOROTEX)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        }
+      ]
+    },
+    "1krekbqnz5OcMMAx4trDpG-f9jsVtXa2e": {
+      "placements": [
+        {
+          "producto": "Nalsperse 73550",
+          "area": "Suministros",
+          "ubicacion": "Calderas",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 12,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": [
+        {
+          "ubicacion": "Sala Caldera Línea Apet",
+          "sheet": "Tabla suspel",
+          "row": 53,
+          "sustancia": "Tensoactivo no iónico 30 - 60% p/p (NALSPERSE 73550)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Sala caldera L1-L2",
+          "sheet": "Tabla suspel",
+          "row": 58,
+          "sustancia": "Tensoactivo no iónico 30 - 60% p/p (NALSPERSE 73550)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        }
+      ]
+    },
+    "1_u5QKmmSHVryMUSJTCnp4ByILYQqxzQm": {
+      "placements": [
+        {
+          "producto": "Interflon Food Grease LT 2",
+          "area": "Mantención",
+          "ubicacion": "Bodega de lubricantes",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 41,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1cCQJkcodpNfPpHSvmhG5Njta3rBP9v8-": {
+      "placements": [
+        {
+          "producto": "Tri-ACT 1830",
+          "area": "Suministros",
+          "ubicacion": "Calderas",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 8,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": [
+        {
+          "ubicacion": "Sala Caldera Línea Apet",
+          "sheet": "Tabla suspel",
+          "row": 52,
+          "sustancia": "Ciclohexilamina 10-30% p/p (TRIACT 1830)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        },
+        {
+          "ubicacion": "Sala caldera L1-L2",
+          "sheet": "Tabla suspel",
+          "row": 57,
+          "sustancia": "Ciclohexilamina 10-30% p/p (TRIACT 1830)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        }
+      ]
+    },
+    "17Ht5zO0yoOkhSo7oXcreGo5LHpy5yYy4": {
+      "placements": [
+        {
+          "producto": "NexGuard 22310",
+          "area": "Suministros",
+          "ubicacion": "Calderas",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 7,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1h9twn2ilmenCBH0Q62Izbd0ioIcq6AKP": {
+      "placements": [
+        {
+          "producto": "Nalco PC-510T",
+          "area": "Suministros",
+          "ubicacion": "Sala de Aguas",
+          "estado": "Diluido",
+          "sheet": "Matriz SUSPEL",
+          "row": 5,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": [
+        {
+          "ubicacion": "Sala de Agua",
+          "sheet": "Tabla suspel",
+          "row": 13,
+          "sustancia": "1-carboxi-N,N,N-trimetilmetanaminio\ncloruro (mezcla de Agentes antiincrustante o NALCO PC-510T)",
+          "method": "Nombre comercial explícito en la fila; no se deduce ubicación por composición"
+        }
+      ]
+    },
+    "1G10JiHzj0ZGpnlPUrHKGrWiE5TVFYFv-": {
+      "placements": [
+        {
+          "producto": "Krones Celerol FL7201",
+          "area": "Mantención",
+          "ubicacion": "Bodega de lubricantes",
+          "estado": "",
+          "sheet": "Matriz SUSPEL",
+          "row": 62,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1l-yxsO9aJtfzizECR4qi9Kg39Wq4KNqD": {
+      "placements": [
+        {
+          "producto": "Interflon Fin Grease (aerosol)",
+          "area": "Mantención",
+          "ubicacion": "Bodega de lubricantes",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 49,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1TYeb9LxaEMf3wLPGfKW4srGCtuXqnnIf": {
+      "placements": [
+        {
+          "producto": "Standard sodio 10 ppm",
+          "area": "Calidad",
+          "ubicacion": "Laboratorio Apet",
+          "estado": "Concentrado",
+          "sheet": "Matriz SUSPEL",
+          "row": 119,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1-iAjABuGF48cbZMSk38PT-pCf55Ag4qU": {
+      "placements": [
+        {
+          "producto": "Krones Celerol FL7201",
+          "area": "Mantención",
+          "ubicacion": "Bodega de lubricantes",
+          "estado": "",
+          "sheet": "Matriz SUSPEL",
+          "row": 62,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1ykFxBoMhpufAdreIoFcGlgfS6bFVLIgo": {
+      "placements": [
+        {
+          "producto": "Test de Cloro total, Colorimetría",
+          "area": "Calidad",
+          "ubicacion": "Laboratorio Apet",
+          "estado": "",
+          "sheet": "Matriz SUSPEL",
+          "row": 122,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1a_BmR3F42qWn0zdg_7X11ixzgwgyLBsE": {
+      "placements": [
+        {
+          "producto": "Krones Celerol FL7201",
+          "area": "Mantención",
+          "ubicacion": "Bodega de lubricantes",
+          "estado": "",
+          "sheet": "Matriz SUSPEL",
+          "row": 62,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1ljlRhS9EEi1dijCBNkqCkLsORsEYS3bQ": {
+      "placements": [
+        {
+          "producto": "Krones Celerol FL7201",
+          "area": "Mantención",
+          "ubicacion": "Bodega de lubricantes",
+          "estado": "",
+          "sheet": "Matriz SUSPEL",
+          "row": 62,
+          "method": "Nombre declarado en la HDS coincide exactamente (sin diferencias de espacios o tildes)"
+        }
+      ],
+      "storageReferences": []
+    },
+    "1etA4QwACZr-GFOqn2kd4utDI1Yi8O9m8": {
+      "placements": [
+        {
+          "producto": "Carter EP 680",
+          "area": "Mantención",
+          "ubicacion": "Bodega de lubricantes",
+          "estado": "",
+          "sheet": "Matriz SUSPEL",
+          "row": 58,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    },
+    "12s4wEV3hraVQp9e6kpoTvw7gdToy-bkv": {
+      "placements": [
+        {
+          "producto": "Interflon Fin Super Aerosols",
+          "area": "Mantención",
+          "ubicacion": "Bodega de lubricantes",
+          "estado": "",
+          "sheet": "Matriz SUSPEL",
+          "row": 50,
+          "method": "Vínculo previo, registro contrastado con la matriz"
+        }
+      ],
+      "storageReferences": []
+    }
+  }
+}

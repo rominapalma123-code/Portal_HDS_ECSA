@@ -1854,3 +1854,16 @@ footer strong {
 .hds-viewer-scroll { height:calc(100% - 90px); overflow:auto; padding:12px; background:white; }.hds-viewer-scroll img { display:block; width:100%; max-width:100%; height:auto; margin:auto; }.hds-full-size .hds-viewer-scroll img { max-width:none; width:max(1100px,100%); }
 .hds-picto-zoom:focus-visible,.hds-original-image:focus-visible { outline:3px solid #0066cc; outline-offset:3px; }
 @media(max-width:480px) { .hds-nfpa-panel { padding:12px; }.hds-nfpa-layout { gap:12px; }#modalHdsContent svg.hds-nfpa-diamond { width:140px; height:140px; flex-basis:140px; }.hds-nfpa-values { min-width:120px; }.hds-nfpa-values dt,.hds-nfpa-values dd { font-size:12px; }.hds-picto-zoom img { height:76px; }.hds-table-wrap table { font-size:12px; }.hds-table-wrap td,.hds-table-wrap th { padding:8px 6px; } }
+
+/* Catálogo completo de Drive, separado del inventario físico. */
+[hidden] { display:none !important; }
+.catalog-toolbar { padding:22px 24px; margin:0 0 28px; border:1px solid #d9e6f6; border-radius:18px; background:linear-gradient(120deg,#fff,#eff6ff); }
+.catalog-tabs { display:flex; flex-wrap:wrap; gap:10px; }.catalog-tabs button { padding:12px 20px; border:1px solid #b9cce6; border-radius:11px; background:white; font:inherit; font-weight:700; color:#23446e; cursor:pointer; }.catalog-tabs button[aria-pressed="true"] { color:white; background:#123c73; border-color:#123c73; box-shadow:0 4px 10px #10376a22; }
+#catalogSummary { margin:14px 0 0; color:#51637c; line-height:1.6; font-size:14px; }
+.catalog-filters { display:flex; flex-wrap:wrap; gap:14px; margin-top:18px; }.catalog-filters label { display:grid; gap:7px; font-size:13px; color:#294663; font-weight:600; flex:1; min-width:180px; }.catalog-filters select { width:100%; padding:11px; border:1px solid #bdcfe5; background:white; color:#132e4b; border-radius:9px; font:inherit; }
+.catalog-card { border-top:4px solid #4485cc; }.catalog-card h4 { overflow-wrap:anywhere; }.catalog-type { display:inline-block; border:1px solid #d9d7f8; background:#f1efff; color:#51458b; border-radius:6px; padding:4px 7px; font-size:11px; font-weight:700; }
+.catalog-path { font-size:12px; color:#2b638f; margin:16px 0 8px; line-height:1.6; overflow-wrap:anywhere; }.catalog-filename { font-size:12px; color:#65748b; margin:0 0 14px; overflow-wrap:anywhere; line-height:1.55; }.catalog-location { font-size:12px; color:#7b601c; background:#fff9e9; padding:9px; border-radius:7px; line-height:1.5; margin-bottom:16px; }
+.hds-drive-context { border:1px solid #cbdcf0; background:#f5f9ff; padding:16px; border-radius:14px; margin-bottom:22px; overflow-wrap:anywhere; }.hds-drive-context p { line-height:1.65; font-size:13px; margin:8px 0; }.catalog-unmatched { color:#86601c; }.hds-loading { display:flex; align-items:center; gap:12px; padding:26px; color:#234e80; background:#edf5ff; border-radius:12px; }
+@media(max-width:600px){.catalog-toolbar { padding:16px; }.catalog-tabs button { flex:1; padding:11px 9px; font-size:13px; }.catalog-filters label { min-width:100%; }.catalog-card .card-footer { gap:8px; }.catalog-card .pdf-indicator { font-size:11px; }}
+
+.hds-excerpt { white-space:pre-line; }

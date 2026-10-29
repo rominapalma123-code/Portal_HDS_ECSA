@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=hds-color-20261028-2">
+  <link rel="stylesheet" href="styles.css?v=drive-completo-20261029-1">
 </head>
 <body>
 
@@ -64,6 +64,7 @@
       </div>
     </section>
 
+    <section class="catalog-toolbar" aria-label="Catálogo y listado de planta"><div class="catalog-tabs"><button id="viewDrive" type="button" aria-pressed="true">PDF de Drive</button><button id="viewPlant" type="button" aria-pressed="false">Listado de planta</button></div><p id="catalogSummary"></p><div id="catalogFilters" class="catalog-filters"><label>Tipo de documento<select id="catalogDocType"></select></label><label>Carpeta de origen<select id="catalogFolder"></select></label></div></section>
     <!-- Content Columns -->
     <div class="dashboard-layout">
       
@@ -81,7 +82,7 @@
         <!-- Area Filters -->
         <div class="filter-group">
           <div class="filter-header">
-            <h3>Filtrar por Área</h3>
+            <h3 id="areaFilterTitle">Carpeta de área en Drive</h3>
             <button id="clearArea" class="linkbtn">Ver todas</button>
           </div>
           <div id="areas" class="area-grid"></div>
@@ -143,8 +144,8 @@
 
         <!-- PDF Attachment / URL Editor -->
         <div class="pdf-admin-section">
-          <h4>Hoja de Datos de Seguridad (HDS PDF)</h4>
-          <div class="pdf-link-container">
+          
+          <div class="pdf-link-container" hidden>
             <div class="pdf-status">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
               <div>
@@ -263,13 +264,14 @@
 
   <footer>
     <p><strong>Portal HDS v2.0 - Seguridad y Salud Ocupacional</strong> · Creado a partir del Listado Maestro LM-SSO-SEG-003</p>
-    <p>Las fichas muestran extractos de las HDS procesadas. Consulta el PDF completo y la fecha del documento. Los cambios en Drive requieren volver a procesar la HDS.</p>
+    <p>Las fichas muestran extractos de las HDS procesadas. Consulta el PDF completo y la fecha del documento. Carpetas de Drive y ubicaciones del maestro se presentan por separado. La lectura automática no reemplaza la revisión de la HDS.</p>
   </footer>
 
   <button id="backToTopBtn" class="back-to-top" aria-label="Volver al inicio" type="button">&#8679;</button>
 
-  <script src="data.js?v=hds-color-20261028-2"></script>
-  <script src="app.js?v=hds-color-20261028-2"></script>
+  <script src="data.js?v=drive-completo-20261029-1"></script>
+  <script src="catalogo.js?v=bdb2487494a57b94"></script>
+  <script src="app.js?v=drive-completo-20261029-1"></script>
 
 </body>
 </html>

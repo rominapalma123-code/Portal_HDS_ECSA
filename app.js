@@ -4,10 +4,10 @@ const rawData = window.HDS_DATA || [];
 // Persistent localStorage for HDS PDF URLs
 let localHdsUrls = {};
 try { localHdsUrls = JSON.parse(localStorage.getItem('portal_hds_urls') || '{}') || {}; } catch (_) { /* A corrupt local override must not prevent loading the portal. */ }
-function productKey(item) { return JSON.stringify([item.producto, item.area || '', item.ubicacion || '', item.estado || '']); }
+function productKey(item) { return item.isCatalog ? 'drive:' + item.id : JSON.stringify([item.producto, item.area || '', item.ubicacion || '', item.estado || '']); }
 
 // Enhance raw data with local storage overrides
-const data = rawData.map(item => {
+const plantData = rawData.map(item => {
   const key = productKey(item);
   const legacyKey = `${item.producto}||${item.area || ''}`;
   const uniqueLegacy = rawData.filter(x => `${x.producto}||${x.area || ''}` === legacyKey).length === 1;
@@ -17,6 +17,28 @@ const data = rawData.map(item => {
     hdsUrl: override !== undefined ? override : item.hdsUrl || ''
   };
 });
+
+const catalogData = window.HDS_CATALOG || [];
+const catalogInfo = window.HDS_CATALOG_INFO || {};
+const catalogById = new Map(catalogData.map(x=>[x.id,x]));
+let data = plantData;
+let selectedDocumentType = '';
+let selectedDriveFolder = '';
+const documentLoads = new Map();
+function sourceId(item) {
+  try { const url=new URL(item.hdsUrl); if(url.protocol!=='https:' || url.hostname!=='drive.google.com') return ''; return url.pathname.match(/\/file\/d\/([A-Za-z0-9_-]+)/)?.[1] || url.searchParams.get('id') || ''; } catch(_){ return ''; }
+}
+function loadSourceDocument(item) {
+  const id=sourceId(item); if (!id || !catalogById.has(id)) return Promise.resolve(null);
+  if(window.HDS_DOCUMENTS?.[id]) return Promise.resolve(window.HDS_DOCUMENTS[id]);
+  if(documentLoads.has(id)) return documentLoads.get(id);
+  const promise=new Promise((resolve,reject)=>{
+    const script=document.createElement('script'); script.src=(catalogById.get(id).documentFile || 'hds/'+encodeURIComponent(id)+'.js')+'?v='+(catalogById.get(id).documentVersion || catalogInfo.updatedAt);
+    script.onload=()=>window.HDS_DOCUMENTS?.[id] ? resolve(window.HDS_DOCUMENTS[id]) : reject(new Error('No se recibió la ficha'));
+    script.onerror=()=>{documentLoads.delete(id);script.remove();reject(new Error('No se pudo cargar la lectura del documento'));};
+    document.head.appendChild(script);
+  }); documentLoads.set(id,promise); return promise;
+}
 
 // Selectors
 const areasEl = document.getElementById('areas');
@@ -53,6 +75,8 @@ const closeEmergencyModal = document.getElementById('closeEmergencyModal');
 
 // Active State
 const params = new URLSearchParams(location.search);
+let catalogMode = params.get('vista') === 'planta' || (params.has('area') && !params.has('vista')) ? 'planta' : 'drive';
+data = catalogMode === 'drive' ? catalogData : plantData;
 let selectedArea = params.get('area') || '';
 let selectedHazardClass = params.get('hazard') || '';
 let activeModalItemKey = null; // Track which item is active in the modal
@@ -92,12 +116,14 @@ function getHazardLabel(claseCode) {
 }
 
 // Extract unique areas from data
-const areas = [...new Set(data.map(x => x.area).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'es'));
+let areas = getAreas();
+function getAreas(){return [...new Set(catalogMode==='drive' ? (catalogInfo.areas || data.map(x=>x.area)) : data.map(x=>x.area).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));}
 if (selectedArea && !areas.some(a => norm(a) === norm(selectedArea))) selectedArea = '';
 if (selectedArea) selectedArea = areas.find(a => norm(a) === norm(selectedArea)) || selectedArea;
 
 // Render Areas Sidebar
 function renderAreas() {
+  areas=getAreas();
   areasEl.innerHTML = areas.map(area => {
     // Count items matching the area under the base list
     const n = data.filter(x => x.area === area).length;
@@ -123,6 +149,7 @@ function renderAreas() {
 
 // Render Hazards Sidebar
 function renderHazards() {
+  hazardsEl.closest('.filter-group').hidden = catalogMode === 'drive';
   hazardsEl.innerHTML = hazardSpecs.map(spec => {
     // Count items matching this hazard code
     const n = data.filter(x => getHazardClass(x.clase) === spec.code).length;
@@ -150,6 +177,7 @@ function renderHazards() {
 // Helper to update URL search parameters
 function updateUrlParams() {
   const u = new URL(location.href);
+  u.searchParams.set('vista',catalogMode);
   if (selectedArea) {
     u.searchParams.set('area', selectedArea);
   } else {
@@ -185,9 +213,10 @@ function render() {
   const filtered = data.filter(x => {
     const areaOk = !selectedArea || x.area === selectedArea;
     const hazardCode = getHazardClass(x.clase);
-    const hazardOk = !selectedHazardClass || hazardCode === selectedHazardClass;
+    const hazardOk = catalogMode === 'drive' || !selectedHazardClass || hazardCode === selectedHazardClass;
+    if(catalogMode==='drive' && ((selectedDocumentType && x.documentType!==selectedDocumentType) || (selectedDriveFolder && x.drivePath!==selectedDriveFolder))) return false;
     const source = getSourceDocument(x);
-    const hay = norm([x.producto, source?.sections?.components?.text || x.componentes, x.ubicacion, x.clase, x.area].join(' '));
+    const hay = norm([x.producto, source?.sections?.components?.text || x.componentes, x.searchTerms, catalogById.get(sourceId(x))?.searchTerms, x.fileName, x.drivePath, x.ubicacion, x.clase, x.area, ...(x.placements || []).flatMap(p=>[p.area,p.ubicacion,p.producto])].join(' '));
     return areaOk && hazardOk && (!q || hay.includes(q));
   });
 
@@ -195,15 +224,18 @@ function render() {
   let titleParts = [];
   if (selectedArea) titleParts.push(selectedArea);
   if (selectedHazardClass) titleParts.push(getHazardLabel(selectedHazardClass));
-  resultTitle.textContent = titleParts.length > 0 ? `Sustancias · ${titleParts.join(' · ')}` : 'Todas las sustancias';
+  resultTitle.textContent = titleParts.length > 0 ? `${catalogMode==='drive'?'Documentos':'Sustancias'} · ${titleParts.join(' · ')}` : catalogMode==='drive'?'Todos los PDF de Drive':'Productos del listado maestro';
   
-  countEl.textContent = `${filtered.length} registro${filtered.length === 1 ? '' : 's'}`;
+  countEl.textContent = `${filtered.length} ${catalogMode==='drive'?'documento':'registro'}${filtered.length === 1 ? '' : 's'}`;
 
+  // Render catalogue documents separately from physical plant records.
+  if(catalogMode==='drive'){renderCatalogCards(filtered);return;}
   // Render cards
   cardsEl.innerHTML = filtered.map(x => {
     const hazardCode = getHazardClass(x.clase);
     const doc = getSourceDocument(x);
-    const hazardLabel = doc ? 'Peligros según HDS · Ver ficha' : 'HDS pendiente de lectura';
+    const meta = catalogById.get(sourceId(x));
+    const hazardLabel = doc || meta ? 'Documento incorporado · Ver ficha' : x.hdsCandidates?.length ? 'Varias versiones · Revisar documentos' : 'HDS pendiente de vincular';
     
     return `
     <article class="card ${hazardCode}" data-key="${escapeHtml(productKey(x))}">
@@ -278,7 +310,8 @@ function openProductModal(key) {
   // Set standard text details
   modalTitle.textContent = item.producto;
   modalAreaBadge.textContent = item.area || 'Sin Área';
-  modalLocationText.textContent = item.ubicacion || 'No especificada';
+  modalLocationText.textContent = item.isCatalog && item.placements?.length ? [...new Set(item.placements.map(x=>x.ubicacion))].join(' · ') : item.ubicacion || 'No especificada';
+  document.querySelector('.pdf-admin-section').hidden=!!item.isCatalog;
   renderHdsInformation(item);
 
   // PDF Status setup
@@ -417,6 +450,8 @@ clearHazardBtn.addEventListener('click', (e) => {
 function resetFilters() {
   selectedArea = '';
   selectedHazardClass = '';
+  selectedDocumentType = ''; selectedDriveFolder = '';
+  document.getElementById('catalogDocType').value='';document.getElementById('catalogFolder').value='';
   searchEl.value = '';
   updateUrlParams();
   renderAreas();
@@ -608,8 +643,8 @@ function splitHdsAid(doc) {
     doc.summary.aid.forEach(x => output[keyFor(x.route)].push(x.text));
     return output;
   }
-  // A changed/unreviewed PDF must not be split into clinical instructions by heuristics.
-  // The full source remains available in the original-section accordion.
+  if(doc.aidExtractsSha256===doc.sha256 && Array.isArray(doc.aidExtracts)) doc.aidExtracts.forEach(x=>output[keyFor(x.route)].push(x.text));
+  // Only explicit route headings are grouped; a missing or ambiguous route stays pending.
   return output;
 }
 
@@ -626,7 +661,17 @@ function renderHdsInformation(item) {
   const container = document.getElementById('modalHdsContent');
   if (!container) return;
   const doc = getSourceDocument(item);
-  const internal = `<p class="hds-internal"><strong>Uso interno:</strong> ${escapeHtml(item.estado || 'Sin estado registrado')} · ${escapeHtml(item.ubicacion || item.area || '')}<br>La HDS describe el producto suministrado; sus concentraciones pueden diferir de una dilución de uso.</p>`;
+  const internal = item.isCatalog ? renderCatalogProvenance(item,doc) : `<p class="hds-internal"><strong>Listado maestro:</strong> ${escapeHtml(item.estado || 'Sin estado registrado')} · ${escapeHtml(item.ubicacion || item.area || '')}<br>${escapeHtml(item.masterSheet || 'Matriz SUSPEL')} · fila ${item.masterRow || 'por confirmar'}. La HDS describe el producto suministrado; sus concentraciones pueden diferir de una dilución de uso.</p>` + renderCandidateDocuments(item);
+  if (!doc && catalogById.has(sourceId(item))) {
+    container.innerHTML=`<div class="hds-loading" role="status">${hdsIcon('doc')}Cargando lectura del PDF…</div>`+internal;
+    loadSourceDocument(item).then(()=>{if(activeModalItemKey===productKey(item))renderHdsInformation(item);}).catch(()=>{
+      if(activeModalItemKey===productKey(item))container.innerHTML=`<div class="hds-empty"><strong>No se pudo cargar la ficha</strong><p>Comprueba que la carpeta hds esté junto a index.html. El PDF original sigue disponible.</p><a href="${escapeHtml(item.hdsUrl)}" target="_blank" rel="noopener">Abrir PDF original ↗</a></div>`+internal;
+    }); return;
+  }
+  if(doc && (doc.documentType!=='HDS' || doc.textMethod!=='Texto del PDF')) {
+    renderSupplementDocument(container,item,doc,internal); return;
+  }
+
   if (!doc) {
     const pending = item.hdsUrl ? 'HDS pendiente de lectura' : 'HDS pendiente de vincular';
     container.innerHTML = `<div class="hds-empty">${hdsIcon('doc')}<strong>${pending}</strong><p>${item.hdsUrl ? 'Consulta la señalización, composición y primeros auxilios en el PDF disponible.' : 'Aún no se ha asociado un documento a este producto. La clase del listado interno no reemplaza su HDS.'}</p></div>
@@ -635,7 +680,7 @@ function renderHdsInformation(item) {
       (item.hdsUrl ? `<a class="hds-pdf-button" href="${escapeHtml(item.hdsUrl)}" target="_blank" rel="noopener">${hdsIcon('doc')}Abrir HDS completa ↗</a>` : '') + internal;
     return;
   }
-  let content = `<div class="hds-source-strip">${hdsIcon('doc')}<span>HDS${doc.documentDate ? ' · '+escapeHtml(doc.documentDate) : ''}</span><span class="hds-read-badge">Documento vinculado</span></div>`;
+  let content = (item.isCatalog ? internal : '') + `<div class="hds-source-strip">${hdsIcon('doc')}<span>HDS${doc.documentDate ? ' · '+escapeHtml(doc.documentDate) : ''}</span><span class="hds-read-badge">Documento vinculado</span></div>`;
   const summary = doc.summary?.reviewedSha256 === doc.sha256 ? doc.summary : null;
   content += `<section class="hds-section hds-hazard-card"><h4>${hdsIcon('danger')}Peligros según HDS</h4><div class="hds-card-content">`;
   if (summary) {
@@ -650,7 +695,7 @@ function renderHdsInformation(item) {
     if (summary.sourceNote) content += `<p class="hds-source-note"><strong>Revisión del documento pendiente:</strong> ${escapeHtml(summary.sourceNote)}</p>`;
     content += `<p class="hds-caption">Transcripción de esta versión de la HDS. La señalización original se conserva abajo.</p>`;
   } else {
-    content += `<p class="hds-source-note">Esta versión del PDF aún no tiene una ficha resumida verificada. Consulta los apartados originales; no se reutilizan datos de otra versión.</p>`;
+    content += `<p class="hds-source-note">Lectura automática del documento original. Los extractos conservan su idioma y requieren cotejo con la HDS; no se calculan pictogramas ni valores NFPA.</p>`;
     content += hdsSection(doc,'hazards','Clasificación y peligros declarados',true);
   }
   content += renderOriginalLabels(doc);
@@ -660,13 +705,14 @@ function renderHdsInformation(item) {
     content += `<div class="hds-table-wrap"><table><thead><tr><th>Componente</th><th>CAS</th><th>${escapeHtml(summary.concentrationLabel || "Concentración declarada")}</th></tr></thead><tbody>${summary.components.map(x=>`<tr><td>${escapeHtml(x.name)}</td><td>${escapeHtml(x.cas)}</td><td>${escapeHtml(x.percentage)}</td></tr>`).join('')}</tbody></table></div><p class="hds-caption">Producto suministrado · composición declarada en la HDS</p>`;
   } else {
     content += summary?.componentNote ? `<p class="hds-composition-note">${escapeHtml(summary.componentNote)}</p>` : '';
-    content += `<details class="hds-raw"><summary>Ver componentes de la HDS<span class="hds-chevron" aria-hidden="true">⌄</span></summary><div class="hds-excerpt">${escapeHtml(doc.sections?.components?.text || 'Consulta la composición en el documento original.')}</div></details>`;
+    content += `<details class="hds-raw" ${summary ? '' : 'open'}><summary>Ver componentes de la HDS<span class="hds-chevron" aria-hidden="true">⌄</span></summary><div class="hds-excerpt">${escapeHtml(doc.sections?.components?.text || 'Consulta la composición en el documento original.')}</div></details>`;
   }
   content += '</div></section>';
   content += renderAidCards(doc);
+  if(!summary) content += hdsSection(doc,'aid','Primeros auxilios · extracto original completo',true);
   content += `<details class="hds-extra"><summary>${hdsIcon('doc')}Ver extracto original<span class="hds-chevron" aria-hidden="true">⌄</span></summary><div class="hds-extra-body">${(doc.labelImages||[]).map(img=>`<button class="hds-original-image" type="button" data-hds-image="${escapeHtml(img.data)}" aria-label="Ampliar página ${img.page}"><img class="hds-label-page" loading="lazy" src="${img.data}" alt="Sección de peligros, página ${img.page}"></button>`).join('')}${hdsSection(doc,'hazards','Peligros',false)}${hdsSection(doc,'components','Composición',false)}${hdsSection(doc,'aid','Primeros auxilios',false)}</div></details>`;
   content += `<details class="hds-extra hds-source"><summary>${hdsIcon('doc')}Información del documento<span class="hds-chevron" aria-hidden="true">⌄</span></summary><div class="hds-extra-body"><p>${escapeHtml(doc.fileName)}</p><p>Fecha declarada: ${escapeHtml(doc.documentDate || 'Consultar HDS')}</p><p>Lectura incorporada al portal: ${escapeHtml(doc.processedAt)}</p><a href="${escapeHtml(doc.url)}" target="_blank" rel="noopener">Abrir documento original ↗</a></div></details>`;
-  content += `<p class="hds-caption">Consulta la HDS completa para todas las indicaciones.</p><a class="hds-pdf-button" href="${escapeHtml(doc.url)}" target="_blank" rel="noopener">${hdsIcon('doc')}Abrir HDS completa ↗</a>` + internal;
+  content += `<p class="hds-caption">Consulta la HDS completa para todas las indicaciones.</p><a class="hds-pdf-button" href="${escapeHtml(doc.url)}" target="_blank" rel="noopener">${hdsIcon('doc')}Abrir HDS completa ↗</a>` + (item.isCatalog ? '' : internal);
   container.innerHTML = content;
 }
 
@@ -693,3 +739,43 @@ document.addEventListener('click', event => {
   viewer._opener=button; viewer.classList.remove('hds-full-size');viewer.querySelector('[data-image-size]').textContent='Tamaño completo';
   viewer.querySelector('img').src=button.dataset.hdsImage; viewer.showModal();
 });
+
+function renderCandidateDocuments(item) {
+  const list=item.hdsCandidates || [];
+  if(list.length<2)return '';
+  return `<details class="hds-extra"><summary>Otras versiones del mismo producto (${list.length})</summary><div class="hds-extra-body">${list.map(x=>`<p><a href="${escapeHtml(x.url)}" target="_blank" rel="noopener">${escapeHtml(x.name)} ↗</a></p>`).join('')}<p>Revisar versión y correspondencia con el producto utilizado antes de seleccionar otra HDS.</p></div></details>`;
+}
+function renderCatalogProvenance(item,doc) {
+  const locations=doc?.placements || item.placements || []; const storage=doc?.storageReferences || item.storageReferences || [];
+  return `<div class="hds-drive-context"><span class="catalog-type">${escapeHtml(doc?.documentType || item.documentType || 'PDF')}</span><p><strong>Carpeta de origen:</strong> ${escapeHtml(item.drivePath || doc?.folderPath || '')}</p><p><strong>Archivo:</strong> ${escapeHtml(item.fileName || doc?.fileName || '')}</p>${locations.length?`<details class="hds-extra" ${locations.length===1 ? 'open' : ''}><summary>Ubicaciones del listado maestro (${locations.length})</summary><div>${locations.map(p=>`<p><strong>${escapeHtml(p.area)} · ${escapeHtml(p.ubicacion)}</strong><br>${escapeHtml(p.producto)}${p.estado?' · '+escapeHtml(p.estado):''}<br><small>${escapeHtml(p.sheet)} · fila ${p.row}</small></p>`).join('')}</div></details>`:'<p class="catalog-unmatched">Ubicación física pendiente: sin coincidencia exacta en la matriz.</p>'}${storage.length?`<details class="hds-extra"><summary>Zonas de almacenamiento en la otra hoja (${storage.length})</summary><div>${storage.map(p=>`<p><strong>${escapeHtml(p.ubicacion)}</strong><br><small>${escapeHtml(p.sheet)} · fila ${p.row}</small></p>`).join('')}<p class="hds-caption">Referencia independiente de la matriz; no se sustituyen ni se fusionan las ubicaciones.</p></div></details>`:''}${item.duplicateIds?.length?'<p class="hds-caption">Hay otra copia idéntica de este PDF en el catálogo. Se conserva su enlace de origen.</p>':''}</div>`;
+}
+function renderSupplementDocument(container,item,doc,context) {
+  const scanned=doc.textMethod!=='Texto del PDF';
+  const notice=scanned?'Este PDF no contiene texto seleccionable. La lectura OCR es automática y no está validada; consulta la imagen y el documento original.':'Este documento es de apoyo y no reemplaza una HDS del producto.';
+  container.innerHTML=context+`<div class="hds-source-note">${notice}</div>${doc.previewImage?`<button type="button" class="hds-original-image" data-hds-image="${escapeHtml(doc.previewImage)}" aria-label="Ampliar primera página del PDF"><img class="hds-label-page" src="${escapeHtml(doc.previewImage)}" alt="Primera página original del PDF"></button>`:''}${scanned&&doc.ocrText?`<details class="hds-extra"><summary>Leer texto OCR · pendiente de cotejo</summary><div class="hds-excerpt">${escapeHtml(doc.ocrText)}</div></details>`:''}${doc.excerpt?`<details class="hds-extra"><summary>Leer extracto del documento</summary><div class="hds-excerpt">${escapeHtml(doc.excerpt)}</div></details>`:''}<p class="hds-caption">${doc.pages || ''} páginas · ${escapeHtml(doc.textMethod || '')}</p><a class="hds-pdf-button" href="${escapeHtml(doc.url)}" target="_blank" rel="noopener">${hdsIcon('doc')}Abrir PDF original ↗</a>`;
+}
+function renderCatalogCards(items) {
+ cardsEl.innerHTML=items.map(x=>`<article class="card catalog-card" data-key="${escapeHtml(productKey(x))}"><div class="card-title"><h4>${escapeHtml(x.producto)}</h4></div><div class="meta"><span class="tag tag-area">${escapeHtml(x.area)}</span><span class="catalog-type">${escapeHtml(x.documentType)}</span></div><p class="catalog-path">${escapeHtml(x.drivePath)}</p><p class="catalog-filename">${escapeHtml(x.fileName)}</p><p class="catalog-location">${x.placements?.length?`${x.placements.length} registro${x.placements.length===1?'':'s'} en matriz · ${escapeHtml(x.plantAreas.join(', '))}`:x.storageReferences?.length?'Zona de almacenamiento referenciada · sin coincidencia en matriz':'Ubicación física por confirmar'}</p><div class="card-footer"><span class="pdf-indicator available">PDF incorporado${x.textMethod==='OCR sin validar'?' · OCR pendiente':''}</span><button class="card-action-btn" data-key="${escapeHtml(productKey(x))}">Ver documento</button></div></article>`).join('');
+ cardsEl.querySelectorAll('.card, .card-action-btn').forEach(el=>el.addEventListener('click',e=>{e.stopPropagation();openProductModal(el.dataset.key);}));
+ emptyEl.classList.toggle('hidden',items.length>0);
+}
+function switchCatalogMode(mode) {
+ catalogMode=mode;data=mode==='drive'?catalogData:plantData;selectedArea='';selectedHazardClass='';selectedDocumentType='';selectedDriveFolder='';
+ document.getElementById('catalogDocType').value='';document.getElementById('catalogFolder').value='';
+ updateCatalogToolbar();updateUrlParams();renderAreas();renderHazards();render();
+}
+function updateCatalogToolbar(){
+ document.getElementById('viewDrive').setAttribute('aria-pressed',String(catalogMode==='drive'));document.getElementById('viewPlant').setAttribute('aria-pressed',String(catalogMode==='planta'));
+ document.getElementById('catalogFilters').hidden=catalogMode!=='drive';
+ document.getElementById('areaFilterTitle').textContent=catalogMode==='drive'?'Carpeta de área en Drive':'Área del listado maestro';
+ document.getElementById('catalogSummary').textContent=catalogMode==='drive'?`${catalogData.length} PDF en ${catalogInfo.folders?.length || 0} carpetas · se muestran también copias, versiones y documentos de apoyo.`:`${plantData.length} registros del listado maestro · áreas y ubicaciones de la hoja Matriz SUSPEL.`;
+}
+document.getElementById('viewDrive').textContent=`PDF de Drive (${catalogData.length})`;
+document.getElementById('viewPlant').textContent=`Listado de planta (${plantData.length})`;
+document.getElementById('viewDrive').addEventListener('click',()=>switchCatalogMode('drive'));
+document.getElementById('viewPlant').addEventListener('click',()=>switchCatalogMode('planta'));
+document.getElementById('catalogDocType').innerHTML='<option value="">Todos los tipos</option>'+[...new Set(catalogData.map(x=>x.documentType))].sort().map(x=>`<option>${escapeHtml(x)}</option>`).join('');
+document.getElementById('catalogFolder').innerHTML='<option value="">Todas las subcarpetas</option>'+[...new Set(catalogData.map(x=>x.drivePath))].sort((a,b)=>a.localeCompare(b,'es')).map(x=>`<option>${escapeHtml(x)}</option>`).join('');
+document.getElementById('catalogDocType').addEventListener('change',e=>{selectedDocumentType=e.target.value;render();});
+document.getElementById('catalogFolder').addEventListener('change',e=>{selectedDriveFolder=e.target.value;render();});
+updateCatalogToolbar();

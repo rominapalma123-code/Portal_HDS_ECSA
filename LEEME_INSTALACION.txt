@@ -1,0 +1,27 @@
+PORTAL HDS — DRIVE COMPLETO — 29/10/2026
+
+QUÉ QUEDÓ PREPARADO
+323 PDF del Drive en el catálogo, separados de los 109 registros de planta del listado maestro. El archivo Excel no se modificó.
+
+PRUEBA LOCAL
+1. Guarda una copia de tu carpeta actual.
+2. Extrae este ZIP.
+3. Copia el CONTENIDO de Portal_HDS_Drive_completo dentro de tu carpeta Portal_HDS_ECSA, reemplazando los archivos coincidentes. No borres primero la carpeta antigua: combina su contenido.
+4. Abre index.html. Verás dos vistas: PDF de Drive (323) y Listado de planta (109).
+
+SUBIR A GITHUB
+5. En Code, desde la RAÍZ del repositorio, Add file > Upload files.
+6. Arrastra el contenido extraído, incluyendo hds y scripts y todos los archivos de la raíz. NO subas el ZIP ni la carpeta exterior Portal_HDS_Drive_completo como una carpeta adicional.
+   Es esencial que index.html, data.js, catalogo.js, catalogo-drive.json y maestro-vinculos.json queden en la raíz y hds contenga los 14 paquetes.
+7. Confirma Commit changes y la segunda confirmación.
+8. Comprueba el archivo .github/workflows/actualizar-hds.yml: también debe ser reemplazado por la versión incluida. Si la carga de carpetas no lo reemplazó, abre el existente en GitHub, pulsa el lápiz y pega el contenido de WORKFLOW_PARA_COPIAR.txt; confirma Commit changes.
+9. Espera el check verde y abre el portal en incógnito. No cambies Settings > Pages.
+
+NO ES NECESARIO PUBLICAR
+LEEME_INSTALACION.txt, WORKFLOW_PARA_COPIAR.txt e INFORME_CATALOGO.md son instrucciones e informe. Los demás archivos son parte del portal y su actualización.
+
+IMPORTANTE SOBRE AUTOMATIZACIÓN
+La nueva rutina actualiza los 323 PDF del inventario. Detectar automáticamente PDF nuevos dentro de Drive requiere configurar GOOGLE_DRIVE_API_KEY en los secretos de GitHub. Eso todavía NO está activado. No pegues claves en el código o en el chat.
+
+ESTADO REAL DEL CRUCE
+38 registros de planta tienen una HDS principal. Krones FL7201 tiene varias versiones candidatas. Los otros 70 no se asociaron por similitud. Todo el catálogo del Drive está accesible aun cuando una ubicación siga pendiente.
