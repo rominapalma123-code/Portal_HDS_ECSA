@@ -1819,3 +1819,38 @@ footer strong {
  .hds-extra > summary { font-size:13px; }
 }
 @media (prefers-reduced-motion:reduce) { .hds-chevron { transition:none; } }
+
+/* Fichas verificadas: misma presentación para todas las HDS. */
+.pdf-link-container[hidden] { display:none !important; }
+.hds-read-badge { margin-left:auto; color:#096342; font-size:12px; font-weight:700; }
+#modalHdsContent .hds-picto-group { display:flex; flex-wrap:wrap; align-items:center; gap:14px; width:100%; }
+.hds-picto-zoom { border:0; padding:4px; background:white; cursor:zoom-in; max-width:100%; }
+.hds-picto-zoom img { display:block; height:94px; width:auto; max-width:100%; object-fit:contain; }
+.hds-classifications { padding-left:22px; line-height:1.65; margin:18px 0; }
+.hds-classifications li { margin-bottom:6px; }
+.hds-nfpa-panel { margin:12px 0 20px; padding:18px; border:1px solid #d7e4f6; background:linear-gradient(135deg,#f3f8ff,#fff); border-radius:14px; }
+.hds-nfpa-panel > div > strong { font-size:18px; color:#122b56; }
+.hds-nfpa-panel p { margin:4px 0 14px; color:#566782; font-size:13px; }
+.hds-nfpa-layout { display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+#modalHdsContent svg.hds-nfpa-diamond { width:180px; height:180px; flex:0 0 180px; }
+.hds-nfpa-diamond text { font-size:30px; font-weight:800; }
+.hds-nfpa-values { flex:1; min-width:155px; margin:0; }
+.hds-nfpa-values div { display:flex; justify-content:space-between; gap:10px; padding:8px 0; border-bottom:1px solid #e2e8f0; }
+.hds-nfpa-values dt { font-size:14px; }.hds-nfpa-values dd { margin:0; font-size:14px; font-weight:800; }
+.hds-hmis { max-width:340px; margin:18px 0; }.hds-hmis > strong { display:block; margin-bottom:8px; }
+.hds-hmis-row { display:flex; color:white; margin:2px 0; border:1px solid #d5deeb; }.hds-hmis-row span { flex:1; padding:7px 12px; }.hds-hmis-row b { background:white; color:#172033; min-width:50px; text-align:center; padding:7px; }
+.hds-hmis-0 { background:#1759cf; }.hds-hmis-1 { background:#d51b2c; }.hds-hmis-2 { background:#ffe438; color:#182338; }
+.hds-transport { display:grid; justify-items:start; gap:10px; margin:20px 0; }.hds-transport button { background:white; border:0; cursor:zoom-in; }.hds-transport img { width:235px; max-width:100%; }
+.hds-code-strip { background:#fff1e8; border-radius:10px; padding:14px; display:grid; gap:8px; line-height:1.5; }
+.hds-source-note { padding:14px; border-left:4px solid #d78a16; background:#fff7e7; color:#68420a; border-radius:8px; line-height:1.65; }
+.hds-table-wrap { width:100%; overflow:auto; }.hds-table-wrap table { width:100%; table-layout:fixed; }.hds-table-wrap th,.hds-table-wrap td { overflow-wrap:anywhere; vertical-align:top; }.hds-table-wrap th:first-child { width:46%; }
+.hds-composition-note { background:#fff9ec; padding:14px; border-radius:10px; line-height:1.65; }
+.hds-original-image { display:block; padding:0; width:100%; border:0; background:white; cursor:zoom-in; }
+.hds-original-image img { max-height:none; width:100%; height:auto; }
+.hds-image-viewer { width:min(1100px,96vw); max-width:96vw; height:90dvh; max-height:94dvh; padding:0; border:0; border-radius:16px; overflow:hidden; color:#172033; }
+.hds-image-viewer::backdrop { background:#071a36d9; }
+.hds-viewer-bar { display:flex; flex-wrap:wrap; align-items:center; gap:10px; padding:12px 16px; background:#edf5ff; border-bottom:1px solid #ccdef5; }
+.hds-viewer-bar strong { flex:1; font-size:14px; }.hds-viewer-bar button { border:1px solid #b8d1ef; border-radius:8px; padding:9px 12px; background:white; color:#123a69; cursor:pointer; }
+.hds-viewer-scroll { height:calc(100% - 90px); overflow:auto; padding:12px; background:white; }.hds-viewer-scroll img { display:block; width:100%; max-width:100%; height:auto; margin:auto; }.hds-full-size .hds-viewer-scroll img { max-width:none; width:max(1100px,100%); }
+.hds-picto-zoom:focus-visible,.hds-original-image:focus-visible { outline:3px solid #0066cc; outline-offset:3px; }
+@media(max-width:480px) { .hds-nfpa-panel { padding:12px; }.hds-nfpa-layout { gap:12px; }#modalHdsContent svg.hds-nfpa-diamond { width:140px; height:140px; flex-basis:140px; }.hds-nfpa-values { min-width:120px; }.hds-nfpa-values dt,.hds-nfpa-values dd { font-size:12px; }.hds-picto-zoom img { height:76px; }.hds-table-wrap table { font-size:12px; }.hds-table-wrap td,.hds-table-wrap th { padding:8px 6px; } }
